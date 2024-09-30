@@ -1,17 +1,18 @@
 import 'dart:io';
-import 'dart:convert';
 import 'dart:async';
+import 'package:lohnsteuerrechenr/powerproject/lohnpap/generator/Generator.dart';
+import 'package:lohnsteuerrechenr/powerproject/lohnpap/pap/Lohnsteuer2024.dart';
 import 'package:xml/xml.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:your_package/generator.dart'; // Adjust the import according to your package structure
-import 'package:your_package/pap.dart'; // Adjust the import according to your package structure
+//import 'package:lohnsteuerrechenr/lib/powerproject/generator/generator.dart'; // Adjust the import according to your package structure
+//import 'package:lohnsteuerrechenr/lib/powerproject/generator/pap.dart'; // Adjust the import according to your package structure
 
 class LohnsteuerTest {
   static const Type CURRENT = Lohnsteuer2024; // Adjust according to your Dart class
   static const String CURRENT_CODE = "2024ESSt"; // siehe BMF-Seite
 
-  File tmp;
+  File tmp = File("");
 
   static void start() {
     print(".........................................................");
@@ -145,13 +146,15 @@ class LohnsteuerTest {
 //	}
 
 
-  Future<void> check2023() async {
+  // TODO:: comment back in when code was ported
+/*  Future<void> check2023() async {
     await checkLohnsteuer(Lohnsteuer2023, "2023BisJuniVersion1", getDate(2023, 1, 1));
-  }
+  }*/
 
-  Future<void> check2023AbJuli() async {
+  // TODO:: comment back in when code was ported
+/*  Future<void> check2023AbJuli() async {
     await checkLohnsteuer(Lohnsteuer2023AbJuli, "2023AbJuliVersion1", getDate(2023, 7, 1));
-  }
+  }*/
 
   Future<void> check2024() async {
     await checkLohnsteuer(Lohnsteuer2024, "2024Version1", getDate(2024, 1, 1));
@@ -252,7 +255,7 @@ class LohnsteuerTest {
         assert(value == o, "Wert $name");
       } catch (e) {
         print("field $name missing!");
-        throw e;
+        rethrow;
       }
     }
   }

@@ -1,4 +1,9 @@
 import 'package:intl/intl.dart';
+import 'package:lohnsteuerrechenr/powerproject/lohnpap/pap/Lohnsteuer2024.dart';
+import 'package:lohnsteuerrechenr/powerproject/lohnpap/pap/LohnsteuerInterface.dart';
+
+
+import 'LohnsteuerInterface.dart';
 
 /// 
 /// @author Marcel Lehmann (https://github.com/MarcelLehmann/Lohnsteuer)
@@ -6,12 +11,12 @@ import 'package:intl/intl.dart';
 /// 
 
 class Lohnsteuer {
-  static LohnsteuerInterface getInstance() {
-    return getInstance(null);
+  static LohnsteuerInterface getInstanceDefault() {
+    return Lohnsteuer2024();
   }
 
   static LohnsteuerInterface getInstance(DateTime? date) {
-    if (date != null) {
+    /*if (date != null) {
       int year = date.year;
       int month = date.month;
 
@@ -82,7 +87,7 @@ class Lohnsteuer {
         return Lohnsteuer2006();
       }
       throw ArgumentError('Illegal Date ${DateFormat('yyyy-MM-dd').format(date)}');
-    }
+    }*/
 
     return Lohnsteuer2024();
   }

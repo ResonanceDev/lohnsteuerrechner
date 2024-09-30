@@ -1,6 +1,7 @@
-import 'dart:math';
+import 'package:big_decimal/big_decimal.dart';
+import 'package:lohnsteuerrechenr/powerproject/lohnpap/pap/LohnsteuerInterface.dart';
 
-class Lohnsteuer2024 {
+class Lohnsteuer2024 implements LohnsteuerInterface {
   // EINGABEPARAMETER
   int af = 1;
   int AJAHR = 0;
@@ -145,10 +146,43 @@ class Lohnsteuer2024 {
 
   // KONSTANTEN
   static final List<double> TAB1 = [
-    0.0, 0.4, 0.384, 0.368, 0.352, 0.336, 0.32, 0.304, 0.288, 0.272, 0.256, 0.24,
-    0.224, 0.208, 0.192, 0.176, 0.16, 0.152, 0.144, 0.136, 0.128, 0.12, 0.112,
-    0.104, 0.096, 0.088, 0.08, 0.072, 0.064, 0.056, 0.048, 0.04, 0.032, 0.024,
-    0.016, 0.008, 0.0
+    0.0,
+    0.4,
+    0.384,
+    0.368,
+    0.352,
+    0.336,
+    0.32,
+    0.304,
+    0.288,
+    0.272,
+    0.256,
+    0.24,
+    0.224,
+    0.208,
+    0.192,
+    0.176,
+    0.16,
+    0.152,
+    0.144,
+    0.136,
+    0.128,
+    0.12,
+    0.112,
+    0.104,
+    0.096,
+    0.088,
+    0.08,
+    0.072,
+    0.064,
+    0.056,
+    0.048,
+    0.04,
+    0.032,
+    0.024,
+    0.016,
+    0.008,
+    0.0
   ];
 
   static final List<double> TAB2 = [
@@ -162,16 +196,52 @@ class Lohnsteuer2024 {
     396, 360, 342, 324, 306, 288, 270, 252, 234, 216, 198, 180, 162, 144, 126,
     108, 90, 72, 54, 36, 18, 0
   ];
-}
-/* TAB 4 fehlt
-/** Tabelle fuer die Vomhundertsaetze des Altersentlastungsbetrags */
-	protected static final BigDecimal[] TAB4 = {BigDecimal.valueOf (0.0), BigDecimal.valueOf (0.4), BigDecimal.valueOf (0.384),           BigDecimal.valueOf (0.368), BigDecimal.valueOf (0.352), BigDecimal.valueOf (0.336), BigDecimal.valueOf (0.32),            BigDecimal.valueOf (0.304), BigDecimal.valueOf (0.288), BigDecimal.valueOf (0.272), BigDecimal.valueOf (0.256),            BigDecimal.valueOf (0.24),  BigDecimal.valueOf (0.224), BigDecimal.valueOf (0.208), BigDecimal.valueOf (0.192),            BigDecimal.valueOf (0.176), BigDecimal.valueOf (0.16), BigDecimal.valueOf (0.152),  BigDecimal.valueOf (0.144),            BigDecimal.valueOf (0.136), BigDecimal.valueOf (0.128), BigDecimal.valueOf (0.12),  BigDecimal.valueOf (0.112),            BigDecimal.valueOf (0.104), BigDecimal.valueOf (0.096), BigDecimal.valueOf (0.088), BigDecimal.valueOf (0.08),            BigDecimal.valueOf (0.072), BigDecimal.valueOf (0.064), BigDecimal.valueOf (0.056), BigDecimal.valueOf (0.048),            BigDecimal.valueOf (0.04),  BigDecimal.valueOf (0.032), BigDecimal.valueOf (0.024), BigDecimal.valueOf (0.016),            BigDecimal.valueOf (0.008), BigDecimal.valueOf (0.0)};
 
-*/
+  /** Tabelle fuer die Vomhundertsaetze des Altersentlastungsbetrags */
 
+  static final List<BigDecimal> TAB4 =
+  [
+    BigDecimal.parse("0.0"),
+    BigDecimal.parse("0.4"),
+    BigDecimal.parse("0.384"),
+    BigDecimal.parse("0.368"),
+    BigDecimal.parse("0.352"),
+    BigDecimal.parse("0.336"),
+    BigDecimal.parse("0.32"),
+    BigDecimal.parse("0.304"),
+    BigDecimal.parse("0.288"),
+    BigDecimal.parse("0.272"),
+    BigDecimal.parse("0.256"),
+    BigDecimal.parse("0.24"),
+    BigDecimal.parse("0.224"),
+    BigDecimal.parse("0.208"),
+    BigDecimal.parse("0.192"),
+    BigDecimal.parse("0.176"),
+    BigDecimal.parse("0.16"),
+    BigDecimal.parse("0.152"),
+    BigDecimal.parse("0.144"),
+    BigDecimal.parse("0.136"),
+    BigDecimal.parse("0.128"),
+    BigDecimal.parse("0.12"),
+    BigDecimal.parse("0.112"),
+    BigDecimal.parse("0.104"),
+    BigDecimal.parse("0.096"),
+    BigDecimal.parse("0.088"),
+    BigDecimal.parse("0.08"),
+    BigDecimal.parse("0.072"),
+    BigDecimal.parse("0.064"),
+    BigDecimal.parse("0.056"),
+    BigDecimal.parse("0.048"),
+    BigDecimal.parse("0.04"),
+    BigDecimal.parse("0.032"),
+    BigDecimal.parse("0.024"),
+    BigDecimal.parse("0.016"),
+    BigDecimal.parse("0.008"),
+    BigDecimal.parse("0.0")
+  ];
 
   static final List<BigInt> TAB5 = [
-    BigInt.zero,
+    (BigInt.zero),
     BigInt.from(1900),
     BigInt.from(1824),
     BigInt.from(1748),
@@ -207,7 +277,7 @@ class Lohnsteuer2024 {
     BigInt.from(114),
     BigInt.from(76),
     BigInt.from(38),
-    BigInt.zero
+    (BigInt.zero)
   ];
 
   static final BigInt ZAHL1 = BigInt.one;
@@ -222,57 +292,20 @@ class Lohnsteuer2024 {
   static final BigInt ZAHL1000 = BigInt.from(1000);
   static final BigInt ZAHL10000 = BigInt.from(10000);
 
-  BigInt RE4 = BigInt.zero;
-  BigInt PKPV = BigInt.zero;
-  int af = 0;
-  BigInt STERBE = BigInt.zero;
-  int STKL = 0;
-  double f = 0.0;
-  int AJAHR = 0;
-  BigInt JRE4ENT = BigInt.zero;
-  int PVS = 0;
-  int LZZ = 0;
-  int KRV = 0;
-  BigInt KVZ = BigInt.zero;
-  BigInt JHINZU = BigInt.zero;
-  int R = 0;
-  int PVZ = 0;
-  int ZMVB = 0;
-  BigInt LZZHINZU = BigInt.zero;
-  BigInt SONSTB = BigInt.zero;
-  BigInt MBV = BigInt.zero;
-  BigInt JVBEZ = BigInt.zero;
-  BigInt VBEZM = BigInt.zero;
-  BigInt VBS = BigInt.zero;
-  int ALTER1 = 0;
-  BigInt VBEZ = BigInt.zero;
-  BigInt SONSTENT = BigInt.zero;
-  BigInt ENTSCH = BigInt.zero;
-  BigInt JFREIB = BigInt.zero;
-  BigInt VKAPA = BigInt.zero;
-  BigInt JRE4 = BigInt.zero;
-  BigInt ZKF = BigInt.zero;
-  BigInt LZZFREIB = BigInt.zero;
-  int PKV = 0;
-  BigInt PVA = BigInt.zero;
-  int VJAHR = 0;
-  BigInt VBEZS = BigInt.zero;
-  BigInt VMT = BigInt.zero;
-
-  void setRe4(BigInt arg0) {
-    this.RE4 = arg0;
+  void setRe4(BigDecimal arg0) {
+    this.RE4 = arg0 as double;
   }
 
-  void setPkpv(BigInt arg0) {
-    this.PKPV = arg0;
+  void setPkpv(BigDecimal arg0) {
+    this.PKPV = arg0 as double;
   }
 
   void setAf(int arg0) {
     this.af = arg0;
   }
 
-  void setSterbe(BigInt arg0) {
-    this.STERBE = arg0;
+  void setSterbe(BigDecimal arg0) {
+    this.STERBE = arg0 as double;
   }
 
   void setStkl(int arg0) {
@@ -287,8 +320,8 @@ class Lohnsteuer2024 {
     this.AJAHR = arg0;
   }
 
-  void setJre4ent(BigInt arg0) {
-    this.JRE4ENT = arg0;
+  void setJre4ent(BigDecimal arg0) {
+    this.JRE4ENT = arg0 as double;
   }
 
   void setPvs(int arg0) {
@@ -303,12 +336,12 @@ class Lohnsteuer2024 {
     this.KRV = arg0;
   }
 
-  void setKvz(BigInt arg0) {
-    this.KVZ = arg0;
+  void setKvz(BigDecimal arg0) {
+    this.KVZ = arg0 as double;
   }
 
-  void setJhinzu(BigInt arg0) {
-    this.JHINZU = arg0;
+  void setJhinzu(BigDecimal arg0) {
+    this.JHINZU = arg0 as double;
   }
 
   void setR(int arg0) {
@@ -323,158 +356,158 @@ class Lohnsteuer2024 {
     this.ZMVB = arg0;
   }
 
-  void setLzzhinzu(BigInt arg0) {
-    this.LZZHINZU = arg0;
+  void setLzzhinzu(BigDecimal arg0) {
+    this.LZZHINZU = arg0 as double;
   }
 
-  void setSonstb(BigInt arg0) {
-    this.SONSTB = arg0;
+  void setSonstb(BigDecimal arg0) {
+    this.SONSTB = arg0 as double;
   }
 
-  void setMbv(BigInt arg0) {
-    this.MBV = arg0;
+  void setMbv(BigDecimal arg0) {
+    this.MBV = arg0 as double;
   }
 
-  void setJvbez(BigInt arg0) {
-    this.JVBEZ = arg0;
+  void setJvbez(BigDecimal arg0) {
+    this.JVBEZ = arg0 as double;
   }
 
-  void setVbezm(BigInt arg0) {
-    this.VBEZM = arg0;
+  void setVbezm(BigDecimal arg0) {
+    this.VBEZM = arg0 as double;
   }
 
-  void setVbs(BigInt arg0) {
-    this.VBS = arg0;
+  void setVbs(BigDecimal arg0) {
+    this.VBS = arg0 as double;
   }
 
   void setAlter1(int arg0) {
     this.ALTER1 = arg0;
   }
 
-  void setVbez(BigInt arg0) {
-    this.VBEZ = arg0;
+  void setVbez(BigDecimal arg0) {
+    this.VBEZ = arg0 as double;
   }
 
-  void setSonstent(BigInt arg0) {
-    this.SONSTENT = arg0;
+  void setSonstent(BigDecimal arg0) {
+    this.SONSTENT = arg0 as double;
   }
 
-  void setEntsch(BigInt arg0) {
-    this.ENTSCH = arg0;
+  void setEntsch(BigDecimal arg0) {
+    this.ENTSCH = arg0 as double;
   }
 
-  void setJfreib(BigInt arg0) {
-    this.JFREIB = arg0;
+  void setJfreib(BigDecimal arg0) {
+    this.JFREIB = arg0 as double;
   }
 
-  void setVkapa(BigInt arg0) {
-    this.VKAPA = arg0;
+  void setVkapa(BigDecimal arg0) {
+    this.VKAPA = arg0 as double;
   }
 
-  void setJre4(BigInt arg0) {
-    this.JRE4 = arg0;
+  void setJre4(BigDecimal arg0) {
+    this.JRE4 = arg0 as double;
   }
 
-  void setZkf(BigInt arg0) {
-    this.ZKF = arg0;
+  void setZkf(BigDecimal arg0) {
+    this.ZKF = arg0 as double;
   }
 
-  void setLzzfreib(BigInt arg0) {
-    this.LZZFREIB = arg0;
+  void setLzzfreib(BigDecimal arg0) {
+    this.LZZFREIB = arg0 as double;
   }
 
   void setPkv(int arg0) {
     this.PKV = arg0;
   }
 
-  void setPva(BigInt arg0) {
-    this.PVA = arg0;
+  void setPva(BigDecimal arg0) {
+    this.PVA = arg0 as double;
   }
 
   void setVjahr(int arg0) {
     this.VJAHR = arg0;
   }
 
-  void setVbezs(BigInt arg0) {
-    this.VBEZS = arg0;
+  void setVbezs(BigDecimal arg0) {
+    this.VBEZS = arg0 as double;
   }
 
-  void setVmt(BigInt arg0) {
-    this.VMT = arg0;
+  void setVmt(BigDecimal arg0) {
+    this.VMT = arg0 as double;
   }
 
-  BigInt getLstlzz() {
-    return this.LSTLZZ;
+  BigDecimal getLstlzz() {
+    return BigDecimal.parse(this.LSTLZZ.toString());
   }
 
-  BigInt getVfrb() {
-    return this.VFRB;
+  BigDecimal getVfrb() {
+    return BigDecimal.parse(this.VFRB.toString());
   }
 
-  BigInt getBk() {
-    return this.BK;
+  BigDecimal getBk() {
+    return BigDecimal.parse(this.BK.toString());
   }
 
-  BigInt getSolzv() {
-    return this.SOLZV;
+  BigDecimal getSolzv() {
+    return BigDecimal.parse(this.SOLZV.toString());
   }
 
-  BigInt getBks() {
-    return this.BKS;
+  BigDecimal getBks() {
+    return BigDecimal.parse(this.BKS.toString());
   }
 
-  BigInt getBkv() {
-    return this.BKV;
+  BigDecimal getBkv() {
+    return BigDecimal.parse(this.BKV.toString());
   }
 
-  BigInt getSolzs() {
-    return this.SOLZS;
+  BigDecimal getSolzs() {
+    return BigDecimal.parse(this.SOLZS.toString());
   }
 
-  BigInt getVfrbs2() {
-    return this.VFRBS2;
+  BigDecimal getVfrbs2() {
+    return BigDecimal.parse(this.VFRBS2.toString());
   }
 
-  BigInt getVfrbs1() {
-    return this.VFRBS1;
+  BigDecimal getVfrbs1() {
+    return BigDecimal.parse(this.VFRBS1.toString());
   }
 
-  BigInt getVkvlzz() {
-    return this.VKVLZZ;
+  BigDecimal getVkvlzz() {
+    return BigDecimal.parse(this.VKVLZZ.toString());
   }
 
-  BigInt getWvfrbm() {
-    return this.WVFRBM;
+  BigDecimal getWvfrbm() {
+    return BigDecimal.parse(this.WVFRBM.toString());
   }
 
-  BigInt getSts() {
-    return this.STS;
+  BigDecimal getSts() {
+    return BigDecimal.parse(this.STS.toString());
   }
 
-  BigInt getStv() {
-    return this.STV;
+  BigDecimal getStv() {
+    return BigDecimal.parse(this.STV.toString());
   }
 
-  BigInt getVkvsonst() {
-    return this.VKVSONST;
+  BigDecimal getVkvsonst() {
+    return BigDecimal.parse(this.VKVSONST.toString());
   }
 
-  BigInt getWvfrb() {
-    return this.WVFRB;
+  BigDecimal getWvfrb() {
+    return BigDecimal.parse(this.WVFRB.toString());
   }
 
-  BigInt getSolzlzz() {
-    return this.SOLZLZZ;
+  BigDecimal getSolzlzz() {
+    return BigDecimal.parse(this.SOLZLZZ.toString());
   }
 
-  BigInt getWvfrbo() {
-    return this.WVFRBO;
+  BigDecimal getWvfrbo() {
+    return BigDecimal.parse(this.WVFRBO.toString());
   }
 
   void main() {
     MPARA();
     MRE4JL();
-    VBEZBSO = BigInt.zero;
+    VBEZBSO = (BigInt.zero as double) as double;
     KENNVMT = 0;
     MRE4();
     MRE4ABZ();
@@ -486,57 +519,58 @@ class Lohnsteuer2024 {
   void MPARA() {
     if (KRV < 2) {
       if (KRV == 0) {
-        BBGRV = BigInt.from(90600);
+        BBGRV = BigInt.from(90600) as double;
       } else {
-        BBGRV = BigInt.from(89400);
+        BBGRV = BigInt.from(89400) as double;
       }
-      RVSATZAN = BigInt.from(93);
+      RVSATZAN = BigInt.from(93) as double;
     } else {
       // Nichts zu tun
     }
-    BBGKVPV = BigInt.from(62100);
-    KVSATZAN = (KVZ / ZAHL2 / ZAHL100) + BigInt.from(7);
-    KVSATZAG = BigInt.from(85) + BigInt.from(7);
+    BBGKVPV = BigInt.from(62100) as double;
+    KVSATZAN = (KVZ / (ZAHL2 as double) / (ZAHL100 as double)) +
+        (BigInt.from(7) as double);
+    KVSATZAG = (BigInt.from(85) + BigInt.from(7)) as double;
     if (PVS == 1) {
-      PVSATZAN = BigInt.from(22);
-      PVSATZAG = BigInt.from(12);
+      PVSATZAN = BigInt.from(22) as double;
+      PVSATZAG = BigInt.from(12) as double;
     } else {
-      PVSATZAN = BigInt.from(17);
-      PVSATZAG = BigInt.from(17);
+      PVSATZAN = BigInt.from(17) as double;
+      PVSATZAG = BigInt.from(17) as double;
     }
     if (PVZ == 1) {
-      PVSATZAN += BigInt.from(6);
+      PVSATZAN += BigInt.from(6) as double;
     } else {
-      PVSATZAN -= PVA * BigInt.from(25);
+      PVSATZAN -= PVA * (BigInt.from(25) as double);
     }
-    W1STKL5 = BigInt.from(13279);
-    W2STKL5 = BigInt.from(33380);
-    W3STKL5 = BigInt.from(222260);
-    GFB = BigInt.from(11604);
-    SOLZFREI = BigInt.from(18130);
+    W1STKL5 = BigInt.from(13279) as double;
+    W2STKL5 = BigInt.from(33380) as double;
+    W3STKL5 = BigInt.from(222260) as double;
+    GFB = BigInt.from(11604) as double;
+    SOLZFREI = BigInt.from(18130) as double;
   }
 
   void MRE4JL() {
     if (LZZ == 1) {
-      ZRE4J = RE4 / ZAHL100;
-      ZVBEZJ = VBEZ / ZAHL100;
-      JLFREIB = LZZFREIB / ZAHL100;
-      JLHINZU = LZZHINZU / ZAHL100;
+      ZRE4J = RE4 / (ZAHL100 as double);
+      ZVBEZJ = VBEZ / (ZAHL100 as double);
+      JLFREIB = LZZFREIB / (ZAHL100 as double);
+      JLHINZU = LZZHINZU / (ZAHL100 as double);
     } else if (LZZ == 2) {
-      ZRE4J = (RE4 * ZAHL12) / ZAHL100;
-      ZVBEZJ = (VBEZ * ZAHL12) / ZAHL100;
-      JLFREIB = (LZZFREIB * ZAHL12) / ZAHL100;
-      JLHINZU = (LZZHINZU * ZAHL12) / ZAHL100;
+      ZRE4J = (RE4 * (ZAHL12 as double)) / (ZAHL100 as double);
+      ZVBEZJ = (VBEZ * (ZAHL12 as double)) / (ZAHL100 as double);
+      JLFREIB = (LZZFREIB * (ZAHL12 as double)) / (ZAHL100 as double);
+      JLHINZU = (LZZHINZU * (ZAHL12 as double)) / (ZAHL100 as double);
     } else if (LZZ == 3) {
-      ZRE4J = (RE4 * ZAHL360) / ZAHL700;
-      ZVBEZJ = (VBEZ * ZAHL360) / ZAHL700;
-      JLFREIB = (LZZFREIB * ZAHL360) / ZAHL700;
-      JLHINZU = (LZZHINZU * ZAHL360) / ZAHL700;
+      ZRE4J = (RE4 * (ZAHL360 as double)) / (ZAHL700 as double);
+      ZVBEZJ = (VBEZ * (ZAHL360 as double)) / (ZAHL700 as double);
+      JLFREIB = (LZZFREIB * (ZAHL360 as double)) / (ZAHL700 as double);
+      JLHINZU = (LZZHINZU * (ZAHL360 as double)) / (ZAHL700 as double);
     } else {
-      ZRE4J = (RE4 * ZAHL360) / ZAHL100;
-      ZVBEZJ = (VBEZ * ZAHL360) / ZAHL100;
-      JLFREIB = (LZZFREIB * ZAHL360) / ZAHL100;
-      JLHINZU = (LZZHINZU * ZAHL360) / ZAHL100;
+      ZRE4J = (RE4 * (ZAHL360 as double)) / (ZAHL100 as double);
+      ZVBEZJ = (VBEZ * (ZAHL360 as double)) / (ZAHL100 as double);
+      JLFREIB = (LZZFREIB * (ZAHL360 as double)) / (ZAHL100 as double);
+      JLHINZU = (LZZHINZU * (ZAHL360 as double)) / (ZAHL100 as double);
     }
     if (af == 0) {
       f = 1;
@@ -544,11 +578,11 @@ class Lohnsteuer2024 {
   }
 
   void MRE4() {
-    if (ZVBEZJ == BigInt.zero) {
-      FVBZ = BigInt.zero;
-      FVB = BigInt.zero;
-      FVBZSO = BigInt.zero;
-      FVBSO = BigInt.zero;
+    if (ZVBEZJ == (BigInt.zero as double)) {
+      FVBZ = (BigInt.zero as double) as double;
+      FVB = (BigInt.zero as double) as double;
+      FVBZSO = (BigInt.zero as double) as double;
+      FVBSO = (BigInt.zero as double) as double;
     } else {
       if (VJAHR < 2006) {
         J = 1;
@@ -558,36 +592,39 @@ class Lohnsteuer2024 {
         J = 36;
       }
       if (LZZ == 1) {
-        VBEZB = (VBEZM * BigInt.from(ZMVB)) + VBEZS;
-        HFVB = TAB2[J] / ZAHL12 * BigInt.from(ZMVB);
-        FVBZ = (TAB3[J] / ZAHL12 * BigInt.from(ZMVB)).toInt();
+        VBEZB = (VBEZM * (BigInt.from(ZMVB) as double) + VBEZS);
+        HFVB = TAB2[J] / (ZAHL12 as double) * (BigInt.from(ZMVB) as double);
+        FVBZ = (TAB3[J] / (ZAHL12 as double) * (BigInt.from(ZMVB) as double))
+            .toInt() as double;
       } else {
-        VBEZB = ((VBEZM * ZAHL12) + VBEZS).toInt();
+        VBEZB = ((VBEZM * (ZAHL12 as double)) + VBEZS).toInt() as double;
         HFVB = TAB2[J];
         FVBZ = TAB3[J];
       }
-      FVB = ((VBEZB * TAB1[J]) / ZAHL100).toInt();
+      FVB = ((VBEZB * TAB1[J]) / (ZAHL100 as double)).toInt() as double;
       if (FVB > HFVB) {
         FVB = HFVB;
       }
       if (FVB > ZVBEZJ) {
         FVB = ZVBEZJ;
       }
-      FVBSO = (FVB + ((VBEZBSO * TAB1[J]) / ZAHL100)).toInt();
+      FVBSO =
+      (FVB + ((VBEZBSO * TAB1[J]) / (ZAHL100 as double))).toInt() as double;
       if (FVBSO > TAB2[J]) {
         FVBSO = TAB2[J];
       }
-      HFVBZSO = (((VBEZB + VBEZBSO) / ZAHL100) - FVBSO).toInt();
-      FVBZSO = (FVBZ + (VBEZBSO / ZAHL100)).toInt();
+      HFVBZSO =
+      (((VBEZB + VBEZBSO) / (ZAHL100 as double)) - FVBSO).toInt() as double;
+      FVBZSO = (FVBZ + (VBEZBSO / (ZAHL100 as double))).toInt() as double;
       if (FVBZSO > HFVBZSO) {
-        FVBZSO = HFVBZSO.toInt();
+        FVBZSO = HFVBZSO.toInt() as double;
       }
       if (FVBZSO > TAB3[J]) {
         FVBZSO = TAB3[J];
       }
-      HFVBZ = ((VBEZB / ZAHL100) - FVB).toInt();
+      HFVBZ = ((VBEZB / (ZAHL100 as double)) - FVB).toInt() as double;
       if (FVBZ > HFVBZ) {
-        FVBZ = HFVBZ.toInt();
+        FVBZ = HFVBZ.toInt() as double;
       }
     }
     MRE4ALTE();
@@ -595,7 +632,7 @@ class Lohnsteuer2024 {
 
   void MRE4ALTE() {
     if (ALTER1 == 0) {
-      ALTE = BigInt.zero;
+      ALTE = (BigInt.zero as double) as double;
     } else {
       if (AJAHR < 2006) {
         K = 1;
@@ -605,8 +642,8 @@ class Lohnsteuer2024 {
         K = 36;
       }
       BMG = ZRE4J - ZVBEZJ;
-      ALTE = (BMG * TAB4[K]).toInt();
-      HBALTE = TAB5[K];
+      ALTE = (BMG * (TAB4[K] as double)).toInt() as double;
+      HBALTE = TAB5[K] as double;
       if (ALTE > HBALTE) {
         ALTE = HBALTE;
       }
@@ -614,36 +651,36 @@ class Lohnsteuer2024 {
   }
 
   void MRE4ABZ() {
-    ZRE4 = (ZRE4J - FVB - ALTE - JLFREIB + JLHINZU).toInt();
-    if (ZRE4 < BigInt.zero) {
-      ZRE4 = BigInt.zero;
+    ZRE4 = (ZRE4J - FVB - ALTE - JLFREIB + JLHINZU).toInt() as double;
+    if (ZRE4 < ((BigInt.zero as double) as double)) {
+      ZRE4 = (BigInt.zero as double) as double;
     }
     ZRE4VP = ZRE4J;
     if (KENNVMT == 2) {
-      ZRE4VP = (ZRE4VP - (ENTSCH / ZAHL100)).toInt();
+      ZRE4VP = (ZRE4VP - (ENTSCH / (ZAHL100 as double))).toInt() as double;
     }
-    ZVBEZ = (ZVBEZJ - FVB).toInt();
-    if (ZVBEZ < BigInt.zero) {
-      ZVBEZ = BigInt.zero;
+    ZVBEZ = (ZVBEZJ - FVB).toInt() as double;
+    if (ZVBEZ < (BigInt.zero as double)) {
+      ZVBEZ = (BigInt.zero as double) as double;
     }
   }
 
   void MBERECH() {
     MZTABFB();
-    VFRB = ((ANP + FVB + FVBZ) * ZAHL100).toInt();
+    VFRB = ((ANP + FVB + FVBZ) * (ZAHL100 as double)).toInt() as double;
     MLSTJAHR();
-    WVFRB = ((ZVE - GFB) * ZAHL100).toInt();
-    if (WVFRB < BigInt.zero) {
-      WVFRB = BigInt.zero;
+    WVFRB = ((ZVE - GFB) * (ZAHL100 as double)).toInt() as double;
+    if (WVFRB < (BigInt.zero as double)) {
+      WVFRB = (BigInt.zero as double) as double;
     }
-    LSTJAHR = (ST * BigInt.from(f)).toInt();
+    LSTJAHR = (ST * (BigInt.from(f) as double)).toInt() as double;
     UPLSTLZZ();
     UPVKVLZZ();
-    if (ZKF > BigInt.zero) {
+    if (ZKF > (BigInt.zero as double)) {
       ZTABFB = ZTABFB + KFB;
       MRE4ABZ();
       MLSTJAHR();
-      JBMG = (ST * BigInt.from(f)).toInt();
+      JBMG = (ST * (BigInt.from(f) as double)).toInt() as double;
     } else {
       JBMG = LSTJAHR;
     }
@@ -651,72 +688,74 @@ class Lohnsteuer2024 {
   }
 
   void MZTABFB() {
-    ANP = BigInt.zero;
-    if (ZVBEZ >= BigInt.zero && ZVBEZ < FVBZ) {
-      FVBZ = BigInt.from(ZVBEZ.toInt());
+    ANP = (BigInt.zero as double) as double;
+    if (ZVBEZ >= (BigInt.zero as double) && ZVBEZ < FVBZ) {
+      FVBZ = BigInt.from(ZVBEZ.toInt()) as double;
     }
     if (STKL < 6) {
-      if (ZVBEZ > BigInt.zero) {
-        if ((ZVBEZ - FVBZ) < BigInt.from(102)) {
-          ANP = (ZVBEZ - FVBZ).toInt();
+      if (ZVBEZ > (BigInt.zero as double)) {
+        if ((ZVBEZ - FVBZ) < (BigInt.from(102) as double)) {
+          ANP = (ZVBEZ - FVBZ).toInt() as double;
         } else {
-          ANP = BigInt.from(102);
+          ANP = BigInt.from(102) as double;
         }
       }
     } else {
-      FVBZ = BigInt.zero;
-      FVBZSO = BigInt.zero;
+      FVBZ = (BigInt.zero as double) as double;
+      FVBZSO = (BigInt.zero as double) as double;
     }
     if (STKL < 6) {
       if (ZRE4 > ZVBEZ) {
-        if ((ZRE4 - ZVBEZ) < BigInt.from(1230)) {
+        if ((ZRE4 - ZVBEZ) < (BigInt.from(1230) as double)) {
           ANP = ANP + (ZRE4 - ZVBEZ).toInt();
         } else {
-          ANP = ANP + BigInt.from(1230);
+          ANP = ANP + (BigInt.from(1230) as double);
         }
       }
     }
     KZTAB = 1;
     if (STKL == 1) {
-      SAP = BigInt.from(36);
-      KFB = (ZKF * BigInt.from(9312)).toInt();
+      SAP = BigInt.from(36) as double;
+      KFB = (ZKF * (BigInt.from(9312) as double)).toInt() as double;
     } else if (STKL == 2) {
-      EFA = BigInt.from(4260);
-      SAP = BigInt.from(36);
-      KFB = (ZKF * BigInt.from(9312)).toInt();
+      EFA = BigInt.from(4260) as double;
+      SAP = BigInt.from(36) as double;
+      KFB = (ZKF * (BigInt.from(9312) as double)).toInt() as double;
     } else if (STKL == 3) {
       KZTAB = 2;
-      SAP = BigInt.from(36);
-      KFB = (ZKF * BigInt.from(9312)).toInt();
+      SAP = BigInt.from(36) as double;
+      KFB = (ZKF * (BigInt.from(9312) as double)).toInt() as double;
     } else if (STKL == 4) {
-      SAP = BigInt.from(36);
-      KFB = (ZKF * BigInt.from(4656)).toInt();
+      SAP = BigInt.from(36) as double;
+      KFB = (ZKF * (BigInt.from(4656) as double)).toInt() as double;
     } else if (STKL == 5) {
-      SAP = BigInt.from(36);
-      KFB = BigInt.zero;
+      SAP = BigInt.from(36) as double;
+      KFB = (BigInt.zero as double) as double;
     } else {
-      KFB = BigInt.zero;
+      KFB = (BigInt.zero as double) as double;
     }
-    ZTABFB = (EFA + ANP + SAP + FVBZ).toInt();
+    ZTABFB = (EFA + ANP + SAP + FVBZ).toInt() as double;
   }
 
   void MLSTJAHR() {
     UPEVP();
     if (KENNVMT != 1) {
-      ZVE = (ZRE4 - ZTABFB - VSP).toInt();
+      ZVE = (ZRE4 - ZTABFB - VSP).toInt() as double;
       UPMLST();
     } else {
-      ZVE = (ZRE4 - ZTABFB - VSP - (VMT / ZAHL100) - (VKAPA / ZAHL100)).toInt();
-      if (ZVE < BigInt.zero) {
-        ZVE = (ZVE + (VMT / ZAHL100) + (VKAPA / ZAHL100)) / ZAHL5;
+      ZVE = (ZRE4 - ZTABFB - VSP - (VMT / (ZAHL100 as double)) -
+          (VKAPA / (ZAHL100 as double))).toInt() as double;
+      if (ZVE < (BigInt.zero as double)) {
+        ZVE = (ZVE + (VMT / (ZAHL100 as double)) +
+            (VKAPA / (ZAHL100 as double))) / (ZAHL5 as double);
         UPMLST();
-        ST = (ST * ZAHL5).toInt();
+        ST = (ST * (ZAHL5 as double)).toInt() as double;
       } else {
         UPMLST();
         STOVMT = ST;
-        ZVE = (ZVE + ((VMT + VKAPA) / ZAHL500)).toInt();
+        ZVE = (ZVE + ((VMT + VKAPA) / (ZAHL500 as double))).toInt() as double;
         UPMLST();
-        ST = (((ST - STOVMT) * ZAHL5) + STOVMT).toInt();
+        ST = (((ST - STOVMT) * (ZAHL5 as double)) + STOVMT).toInt() as double;
       }
     }
   }
@@ -731,27 +770,27 @@ class Lohnsteuer2024 {
   void UPVKV() {
     if (PKV > 0) {
       if (VSP2 > VSP3) {
-        VKV = VSP2 * ZAHL100;
+        VKV = VSP2 * (ZAHL100 as double);
       } else {
-        VKV = VSP3 * ZAHL100;
+        VKV = VSP3 * (ZAHL100 as double);
       }
     } else {
-      VKV = BigInt.zero;
+      VKV = (BigInt.zero as double) as double;
     }
   }
 
   void UPLSTLZZ() {
-    JW = LSTJAHR * ZAHL100;
+    JW = LSTJAHR * (ZAHL100 as double);
     UPANTEIL();
     LSTLZZ = ANTEIL1;
   }
 
   void UPMLST() {
-    if (ZVE < ZAHL1) {
-      ZVE = BigInt.zero;
-      X = BigInt.zero;
+    if (ZVE < (ZAHL1 as double)) {
+      ZVE = (BigInt.zero as double);
+      X = (BigInt.zero as double);
     } else {
-      X = (ZVE / BigInt.from(KZTAB)).toInt();
+      X = (ZVE / (BigInt.from(KZTAB) as double)).toInt() as double;
     }
     if (STKL < 5) {
       UPTAB24();
@@ -762,26 +801,26 @@ class Lohnsteuer2024 {
 
   void UPEVP() {
     if (KRV > 1) {
-      VSP1 = BigInt.zero;
+      VSP1 = (BigInt.zero as double);
     } else {
       if (ZRE4VP > BBGRV) {
         ZRE4VP = BBGRV;
       }
-      VSP1 = (ZRE4VP * RVSATZAN).toInt();
+      VSP1 = (ZRE4VP * RVSATZAN).toInt() as double;
     }
-    VSP2 = (ZRE4VP * BigInt.from(12)).toInt();
+    VSP2 = (ZRE4VP * (BigInt.from(12) as double)).toInt() as double;
     if (STKL == 3) {
-      VHB = BigInt.from(3000);
+      VHB = BigInt.from(3000) as double;
     } else {
-      VHB = BigInt.from(1900);
+      VHB = BigInt.from(1900) as double;
     }
     if (VSP2 > VHB) {
       VSP2 = VHB;
     }
-    VSPN = (VSP1 + VSP2).toInt();
+    VSPN = (VSP1 + VSP2).toInt() as double;
     MVSP();
     if (VSPN > VSP) {
-      VSP = VSPN.toInt();
+      VSP = VSPN.toInt() as double;
     }
   }
 
@@ -791,17 +830,17 @@ class Lohnsteuer2024 {
     }
     if (PKV > 0) {
       if (STKL == 6) {
-        VSP3 = BigInt.zero;
+        VSP3 = (BigInt.zero as double) as double;
       } else {
-        VSP3 = PKPV * ZAHL12 / ZAHL100;
+        VSP3 = PKPV * (ZAHL12 as double) / (ZAHL100 as double);
         if (PKV == 2) {
-          VSP3 = (VSP3 - (ZRE4VP * (KVSATZAG + PVSATZAG))).toInt();
+          VSP3 = (VSP3 - (ZRE4VP * (KVSATZAG + PVSATZAG))).toInt() as double;
         }
       }
     } else {
-      VSP3 = (ZRE4VP * (KVSATZAN + PVSATZAN)).toInt();
+      VSP3 = (ZRE4VP * (KVSATZAN + PVSATZAN)).toInt() as double;
     }
-    VSP = (VSP3 + VSP1).toInt();
+    VSP = (VSP3 + VSP1).toInt() as double;
   }
 
   void MST5_6() {
@@ -810,10 +849,13 @@ class Lohnsteuer2024 {
       ZX = W2STKL5;
       UP5_6();
       if (ZZX > W3STKL5) {
-        ST = (ST + ((W3STKL5 - W2STKL5) * BigInt.from(42))).toInt();
-        ST = (ST + ((ZZX - W3STKL5) * BigInt.from(45))).toInt();
+        ST = (ST + ((W3STKL5 - W2STKL5) * ((BigInt.from(42)) as double))
+            .toInt() as double);
+        ST = (ST + ((ZZX - W3STKL5) * ((BigInt.from(45)) as double))
+            .toInt() as double);
       } else {
-        ST = (ST + ((ZZX - W2STKL5) * BigInt.from(42))).toInt();
+        ST = (ST + ((ZZX - W2STKL5) * ((BigInt.from(42)) as double))
+            .toInt() as double);
       }
     } else {
       ZX = ZZX;
@@ -822,7 +864,8 @@ class Lohnsteuer2024 {
         VERGL = ST;
         ZX = W1STKL5;
         UP5_6();
-        HOCH = (ST + ((ZZX - W1STKL5) * BigInt.from(42))).toInt();
+        HOCH = (ST + ((ZZX - W1STKL5) * ((BigInt.from(42)) as double))
+            .toInt() as double);
         if (HOCH < VERGL) {
           ST = HOCH;
         } else {
@@ -831,40 +874,46 @@ class Lohnsteuer2024 {
       }
     }
   }
-}
 
   void UP5_6() {
-    X = (ZX * BigInt.from(125) ~/ BigInt.from(100)).toSigned(2); // Änderung für 2024
+    X = (ZX * (BigInt.from(125) as double) ~/ (BigInt.from(100) as double))
+        .toSigned(2) as double; // Änderung für 2024
     UPTAB24();
     ST1 = ST;
-    X = (ZX * BigInt.from(75) ~/ BigInt.from(100)).toSigned(2); // Änderung für 2024
+    X =
+    (ZX * (BigInt.from(75) as double) ~/ (BigInt.from(100) as double)).toSigned(
+        2) as double; // Änderung für 2024
     UPTAB24();
     ST2 = ST;
-    DIFF = (ST1 - ST2) * ZAHL2;
-    MIST = (ZX * BigInt.from(14) ~/ BigInt.from(100)).toSigned(0);
+    DIFF = (ST1 - ST2) * (ZAHL2 as double);
+    MIST =
+    (ZX * (BigInt.from(14) as double) ~/ (BigInt.from(100) as double)).toSigned(
+        0) as double;
     ST = (MIST > DIFF) ? MIST : DIFF;
   }
 
   void MSOLZ() {
     SOLZFREI = (SOLZFREI * KZTAB);
     if (JBMG > SOLZFREI) {
-      SOLZJ = (JBMG * BigInt.from(55) ~/ ZAHL100).toSigned(2);
-      SOLZMIN = ((JBMG - SOLZFREI) * BigInt.from(119) ~/ ZAHL100).toSigned(2); // Änderung für 2021
+      SOLZJ = (JBMG * (BigInt.from(55) as double) ~/
+          (ZAHL100.toSigned(2) as double) as double);
+      SOLZMIN = ((JBMG - SOLZFREI) * (BigInt.from(119) as double) ~/
+          (ZAHL100.toSigned(2) as double) as double); // Änderung für 2021
       if (SOLZMIN < SOLZJ) {
         SOLZJ = SOLZMIN;
       }
-      JW = (SOLZJ * ZAHL100).toSigned(0);
+      JW = (SOLZJ * (ZAHL100.toSigned(0) as double));
       UPANTEIL();
       SOLZLZZ = ANTEIL1;
     } else {
-      SOLZLZZ = BigInt.zero;
+      SOLZLZZ = (BigInt.zero as double) as double;
     }
     if (R > 0) {
-      JW = JBMG * ZAHL100;
+      JW = JBMG * (ZAHL100 as double);
       UPANTEIL();
       BK = ANTEIL1;
     } else {
-      BK = BigInt.zero;
+      BK = (BigInt.zero as double) as double;
     }
   }
 
@@ -872,11 +921,11 @@ class Lohnsteuer2024 {
     if (LZZ == 1) {
       ANTEIL1 = JW;
     } else if (LZZ == 2) {
-      ANTEIL1 = JW ~/ ZAHL12;
+      ANTEIL1 = (JW ~/ (ZAHL12 as double)) as double;
     } else if (LZZ == 3) {
-      ANTEIL1 = (JW * ZAHL7) ~/ ZAHL360;
+      ANTEIL1 = ((JW * (ZAHL7 as double)) ~/ (ZAHL360 as double)) as double;
     } else {
-      ANTEIL1 = JW ~/ ZAHL360;
+      ANTEIL1 = (JW ~/ (ZAHL360 as double)) as double;
     }
   }
 
@@ -885,187 +934,210 @@ class Lohnsteuer2024 {
     if (ZMVB == 0) {
       ZMVB = 12;
     }
-    if (SONSTB == BigInt.zero && MBV == BigInt.zero) { // neu für 2022
-      VKVSONST = BigInt.zero;
-      LSTSO = BigInt.zero;
-      STS = BigInt.zero;
-      SOLZS = BigInt.zero;
-      BK = BigInt.zero;
+    if (SONSTB == (BigInt.zero as double) &&
+        MBV == (BigInt.zero as double)) { // neu für 2022
+      VKVSONST = (BigInt.zero as double) as double;
+      LSTSO = (BigInt.zero as double) as double;
+      STS = (BigInt.zero as double) as double;
+      SOLZS = (BigInt.zero as double) as double;
+      BK = (BigInt.zero as double) as double;
     } else {
       MOSONST();
       UPVKV();
       VKVSONST = VKV;
-      ZRE4J = ((JRE4 + SONSTB) ~/ ZAHL100).toSigned(2);
-      ZVBEZJ = ((JVBEZ + VBS) ~/ ZAHL100).toSigned(2);
+      ZRE4J = ((JRE4 + SONSTB) ~/ (ZAHL100 as double)).toSigned(2) as double;
+      ZVBEZJ = ((JVBEZ + VBS) ~/ (ZAHL100 as double)).toSigned(2) as double;
       VBEZBSO = STERBE;
       MRE4SONST();
       MLSTJAHR();
-      WVFRBM = (ZVE - GFB) * ZAHL100 ~/ BigInt.from(1).toSigned(2);
-      if (WVFRBM < BigInt.zero) { // WVFRBM < 0
-        WVFRBM = BigInt.zero;
+      WVFRBM = ((ZVE - GFB) * (ZAHL100 as double) ~/
+          (BigInt.from(1).toSigned(2) as double) as double);
+      if (WVFRBM < (BigInt.zero as double)) { // WVFRBM < 0
+        WVFRBM = (BigInt.zero as double) as double;
       }
       UPVKV();
       VKVSONST = VKV - VKVSONST;
-      LSTSO = ST * ZAHL100; // lt. PAP:  "Hinweis: negative Zahlen werden nach ihrem Betrag gerundet!"
-      STS = (LSTSO - LSTOSO) * BigInt.from(f) ~/ ZAHL100 * ZAHL100; // Neu für 2022
+      LSTSO = ST *
+          (ZAHL100 as double); // lt. PAP:  "Hinweis: negative Zahlen werden nach ihrem Betrag gerundet!"
+      STS =
+          (LSTSO - LSTOSO) * (BigInt.from(f) as double) ~/ (ZAHL100 as double) *
+              (ZAHL100 as double); // Neu für 2022
       STSMIN();
     }
   }
 
   void STSMIN() {
-    if (STS < BigInt.zero) { // STS < 0
-      if (MBV == BigInt.zero) { // MBV = 0
+    if (STS < (BigInt.zero as double)) { // STS < 0
+      if (MBV == (BigInt.zero as double)) { // MBV = 0
         // absichtlich leer
       } else {
         LSTLZZ += STS;
-        if (LSTLZZ < BigInt.zero) { // LSTLZZ < 0
-          LSTLZZ = BigInt.zero;
+        if (LSTLZZ < (BigInt.zero as double)) { // LSTLZZ < 0
+          LSTLZZ = (BigInt.zero as double) as double;
         }
-        SOLZLZZ += (STS * BigInt.from(55) ~/ ZAHL100).toSigned(0);
-        if (SOLZLZZ < BigInt.zero) { // SOLZLZZ < 0
-          SOLZLZZ = BigInt.zero;
+        SOLZLZZ +=
+            (STS * (BigInt.from(55) as double) ~/ (ZAHL100 as double)).toSigned(
+                0);
+        if (SOLZLZZ < (BigInt.zero as double)) { // SOLZLZZ < 0
+          SOLZLZZ = (BigInt.zero as double) as double;
         }
         BK += STS;
-        if (BK < BigInt.zero) { // BK < 0
-          BK = BigInt.zero;
+        if (BK < (BigInt.zero as double)) { // BK < 0
+          BK = (BigInt.zero as double) as double;
         }
       }
-      STS = BigInt.zero;
-      SOLZS = BigInt.zero;
+      STS = (BigInt.zero as double) as double;
+      SOLZS = (BigInt.zero as double) as double;
     } else {
       MSOLZSTS();
     }
     if (R > 0) {
       BKS = STS;
     } else {
-      BKS = BigInt.zero;
+      BKS = (BigInt.zero as double) as double;
     }
   }
 
   void MSOLZSTS() {
-    if (ZKF > BigInt.zero) { // ZKF > 0
+    if (ZKF > (BigInt.zero as double)) { // ZKF > 0
       SOLZSZVE = ZVE - KFB;
     } else {
       SOLZSZVE = ZVE;
     }
-    if (SOLZSZVE < BigInt.one) { // SOLZSZVE < 1
-      SOLZSZVE = BigInt.zero;
-      X = BigInt.zero;
+    if (SOLZSZVE < (BigInt.one as double)) { // SOLZSZVE < 1
+      SOLZSZVE = (BigInt.zero as double) as double;
+      X = (BigInt.zero as double) as double;
     } else {
-      X = SOLZSZVE ~/ KZTAB;
+      X = (SOLZSZVE ~/ KZTAB) as double;
     }
     if (STKL < 5) { // STKL < 5
       UPTAB24();
     } else {
       MST5_6();
     }
-    SOLZSBMG = ST * BigInt.from(f).toSigned(0);
+    SOLZSBMG = ST * (BigInt.from(f).toSigned(0) as double);
     if (SOLZSBMG > SOLZFREI) { // SOLZSBMG > SOLZFREI
-      SOLZS = STS * BigInt.from(55) ~/ ZAHL100;
+      SOLZS =
+      (STS * (BigInt.from(55) as double) ~/ (ZAHL100 as double)) as double;
     } else {
-      SOLZS = BigInt.zero;
+      SOLZS = (BigInt.zero as double) as double;
     }
   }
 
   void MVMT() {
-    if (VKAPA < BigInt.zero) {
-      VKAPA = BigInt.zero;
+    if (VKAPA < (BigInt.zero as double)) {
+      VKAPA = (BigInt.zero as double) as double;
     }
-    if ((VMT + VKAPA) > BigInt.zero) {
-      if (LSTSO == BigInt.zero) {
+    if ((VMT + VKAPA) > (BigInt.zero as double)) {
+      if (LSTSO == (BigInt.zero as double)) {
         MOSONST();
         LST1 = LSTOSO;
       } else {
         LST1 = LSTSO;
       }
       VBEZBSO = STERBE + VKAPA;
-      ZRE4J = ((JRE4 + SONSTB + VMT + VKAPA) ~/ ZAHL100).toSigned(2);
-      ZVBEZJ = ((JVBEZ + VBS + VKAPA) ~/ ZAHL100).toSigned(2);
+      ZRE4J = ((JRE4 + SONSTB + VMT + VKAPA) ~/ (ZAHL100 as double)).toSigned(
+          2) as double;
+      ZVBEZJ =
+      ((JVBEZ + VBS + VKAPA) ~/ (ZAHL100 as double)).toSigned(2) as double;
       KENNVMT = 2;
       MRE4SONST();
       MLSTJAHR();
-      LST3 = ST * ZAHL100;
+      LST3 = ST * (ZAHL100 as double);
       MRE4ABZ();
-      ZRE4VP = ZRE4VP - (JRE4ENT ~/ ZAHL100) - (SONSTENT ~/ ZAHL100);
+      ZRE4VP = ZRE4VP - (JRE4ENT ~/ (ZAHL100 as double)) -
+          (SONSTENT ~/ (ZAHL100 as double));
       KENNVMT = 1;
       MLSTJAHR();
-      LST2 = ST * ZAHL100;
+      LST2 = ST * (ZAHL100 as double);
       STV = LST2 - LST1;
       LST3 = LST3 - LST1;
       if (LST3 < STV) {
         STV = LST3;
       }
-      if (STV < BigInt.zero) {
-        STV = BigInt.zero;
+      if (STV < (BigInt.zero as double)) {
+        STV = (BigInt.zero as double) as double;
       } else {
-        STV = STV * BigInt.from(f) ~/ ZAHL100 * ZAHL100;
+        STV = STV * (BigInt.from(f) as double) ~/ (ZAHL100 as double) *
+            (ZAHL100 as double);
       }
-      SOLZVBMG = STV ~/ ZAHL100 + JBMG;
+      SOLZVBMG = STV ~/ (ZAHL100 as double) + JBMG;
       if (SOLZVBMG > SOLZFREI) { // SOLZVBMG > SOLZFREI
-        SOLZV = STV * BigInt.from(55) ~/ ZAHL100;
+        SOLZV =
+        (STV * (BigInt.from(55) as double) ~/ (ZAHL100 as double)) as double;
       } else {
-        SOLZV = BigInt.zero;
+        SOLZV = (BigInt.zero as double) as double;
       }
       if (R > 0) {
         BKV = STV;
       } else {
-        BKV = BigInt.zero;
+        BKV = (BigInt.zero as double) as double;
       }
     } else {
-      STV = BigInt.zero;
-      SOLZV = BigInt.zero;
-      BKV = BigInt.zero;
+      STV = (BigInt.zero as double) as double;
+      SOLZV = (BigInt.zero as double) as double;
+      BKV = (BigInt.zero as double) as double;
     }
   }
 
   void MOSONST() {
-    ZRE4J = (JRE4 ~/ ZAHL100).toSigned(2);
-    ZVBEZJ = (JVBEZ ~/ ZAHL100).toSigned(2);
-    JLFREIB = JFREIB ~/ ZAHL100;
-    JLHINZU = JHINZU ~/ ZAHL100;
+    ZRE4J = (JRE4 ~/ (ZAHL100 as double)).toSigned(2) as double;
+    ZVBEZJ = (JVBEZ ~/ (ZAHL100 as double)).toSigned(2) as double;
+    JLFREIB = (JFREIB ~/ (ZAHL100 as double)) as double;
+    JLHINZU = (JHINZU ~/ (ZAHL100 as double)) as double;
     MRE4();
     MRE4ABZ();
-    ZRE4VP = ZRE4VP - (JRE4ENT ~/ ZAHL100);
+    ZRE4VP = ZRE4VP - (JRE4ENT ~/ (ZAHL100 as double));
     MZTABFB();
-    VFRBS1 = ((ANP + FVB + FVBZ) * ZAHL100).toSigned(2);
+    VFRBS1 = ((ANP + FVB + FVBZ) * (ZAHL100.toSigned(2) as double));
     MLSTJAHR();
-    WVFRBO = ((ZVE - GFB) * ZAHL100).toSigned(2);
-    if (WVFRBO < BigInt.zero) {
-      WVFRBO = BigInt.zero;
+    WVFRBO = ((ZVE - GFB) * (ZAHL100.toSigned(2) as double));
+    if (WVFRBO < (BigInt.zero as double)) {
+      WVFRBO = (BigInt.zero as double) as double;
     }
-    LSTOSO = ST * ZAHL100;
+    LSTOSO = ST * (ZAHL100 as double);
   }
 
   void MRE4SONST() {
     MRE4();
     FVB = FVBSO;
     MRE4ABZ(); // Änderung für 2022
-    ZRE4VP = ZRE4VP + (MBV ~/ ZAHL100) - (JRE4ENT ~/ ZAHL100) - (SONSTENT ~/ ZAHL100);
+    ZRE4VP = ZRE4VP + (MBV ~/ (ZAHL100 as double)) -
+        (JRE4ENT ~/ (ZAHL100 as double)) - (SONSTENT ~/ (ZAHL100 as double));
     FVBZ = FVBZSO;
     MZTABFB();
-    VFRBS2 = (((ANP + FVB + FVBZ) * ZAHL100) - VFRBS1);
+    VFRBS2 = (((ANP + FVB + FVBZ) * (ZAHL100 as double)) - VFRBS1);
   }
 
   void UPTAB24() {
-    if (X < (GFB + ZAHL1)) {
-      ST = BigInt.zero;
-    } else if (X < BigInt.from(17006)) { // Geändert für 2024
-      var Y = (X - GFB) ~/ ZAHL10000;
-      var RW = Y * BigInt.from(92298) ~/ BigInt.from(100); // Geändert für 2024
-      RW += BigInt.from(1400);
-      ST = (RW * Y).toSigned(0);
-    } else if (X < BigInt.from(66761)) { // Geändert für 2024
-      var Y = (X - BigInt.from(17005)) ~/ ZAHL10000; // Geändert für 2024
-      var RW = Y * BigInt.from(18119) ~/ BigInt.from(100); // Geändert für 2024
-      RW += BigInt.from(2397);
+    if (X < (GFB + (ZAHL1 as double))) {
+      ST = (BigInt.zero as double) as double;
+    } else if (X < (BigInt.from(17006) as double)) { // Geändert für 2024
+      var Y = (X - GFB) ~/ (ZAHL10000 as double);
+      var RW = Y * (BigInt.from(92298) as double) ~/
+          (BigInt.from(100) as double); // Geändert für 2024
+      RW += BigInt.from(1400) as int;
+      ST = ((RW * Y).toSigned(0) as double);
+    } else if (X < (BigInt.from(66761) as double)) { // Geändert für 2024
+      var Y = (X - (BigInt.from(17005) as double)) ~/
+          (ZAHL10000 as double); // Geändert für 2024
+      var RW = Y * (BigInt.from(18119) as double) ~/
+          (BigInt.from(100) as double); // Geändert für 2024
+      RW += (BigInt.from(2397) as double) as int;
       RW *= Y;
-      ST = (RW + BigInt.from(102538)) ~/ BigInt.from(100); // Geändert für 2024
-    } else if (X < BigInt.from(277826)) { // Geändert für 2022
-      ST = ((X * BigInt.from(42) ~/ BigInt.from(100)) - BigInt.from(1060213)) ~/ BigInt.from(100); // Geändert für 2024
+      ST = ((RW + (BigInt.from(102538) as double)) ~/
+          (BigInt.from(100) as double) as double); // Geändert für 2024
+    } else if (X < (BigInt.from(277826) as double)) { // Geändert für 2022
+      ST = (X * ((BigInt.from(42) as double) ~/ (BigInt.from(100) as double))) -
+          ((BigInt.from(1060213) as double) ~/
+              (BigInt.from(100) as double)); // Geändert für 2024
     } else {
-      ST = ((X * BigInt.from(45) ~/ BigInt.from(100)) - BigInt.from(1893688)) ~/ BigInt.from(100); // Geändert für 2024
+      ST = (X * ((BigInt.from(45) as double) ~/ (BigInt.from(100) as double)) -
+          ((BigInt.from(1893688) as double) ~/
+              (BigInt.from(100) as double))); // Geändert für 2024
     }
     ST = ST * KZTAB;
   }
 }
+
 

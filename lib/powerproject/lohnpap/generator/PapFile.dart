@@ -1,16 +1,17 @@
 class PapFile {
-  String xmlfileName;
-  String name;
+  String xmlFileName;
+  String name = "";
   int year;
   int from;
   int? to;
 
-  PapFile(this.xmlfileName, this.year, this.from, this.to) {
-    name = xmlfileName.replaceAll(".xml", "");
+  PapFile(this.xmlFileName, this.year, this.from, this.to) {
+    name = xmlFileName.replaceAll(".xml", "");
+
   }
 
-  String getXmlfileName() {
-    return xmlfileName;
+  String getXmlFileName() {
+    return xmlFileName;
   }
 
   String getName() {

@@ -1,5 +1,5 @@
 import 'package:big_decimal/big_decimal.dart';
-import 'package:lohnsteuerrechenr/powerproject/lohnpap/pap/LohnsteuerInterface.dart';
+import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 
 class Lohnsteuer2024 implements LohnsteuerInterface {
   // EINGABEPARAMETER

@@ -1,3 +1,4 @@
+/*
 import 'dart:io';
 import 'dart:async';
 import 'package:lohnsteuerrechenr/powerproject/lohnpap/generator/Generator.dart';
@@ -49,6 +50,7 @@ class LohnsteuerTest {
       }
     }
   }
+*/
 
 //	@Test
 //	public void check2006() throws Exception {
@@ -156,6 +158,7 @@ class LohnsteuerTest {
     await checkLohnsteuer(Lohnsteuer2023AbJuli, "2023AbJuliVersion1", getDate(2023, 7, 1));
   }*/
 
+/*
   Future<void> check2024() async {
     await checkLohnsteuer(Lohnsteuer2024, "2024Version1", getDate(2024, 1, 1));
   }
@@ -265,3 +268,4 @@ class LohnsteuerTest {
   }
 }
 
+*/

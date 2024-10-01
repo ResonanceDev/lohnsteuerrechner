@@ -100,7 +100,7 @@ class Generator {
     await piw.close();
   
     if (failed) {
-      throw IOException("error occurred");
+      throw "error occurred";
     }
   }
 

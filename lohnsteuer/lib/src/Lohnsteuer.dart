@@ -1,9 +1,8 @@
 import 'package:intl/intl.dart';
-import 'package:lohnsteuerrechenr/powerproject/lohnpap/pap/Lohnsteuer2024.dart';
-import 'package:lohnsteuerrechenr/powerproject/lohnpap/pap/LohnsteuerInterface.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2024.dart';
+import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 
 
-import 'LohnsteuerInterface.dart';
 
 /// 
 /// @author Marcel Lehmann (https://github.com/MarcelLehmann/Lohnsteuer)

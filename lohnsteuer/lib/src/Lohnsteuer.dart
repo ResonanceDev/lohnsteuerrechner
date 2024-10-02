@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:lohnsteuer/src/Lohnsteuer2024.dart';
 import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 

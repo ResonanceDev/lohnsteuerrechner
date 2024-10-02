@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:xml/xml.dart';
 
@@ -184,9 +183,9 @@ class PapHandler {
             pw.appendln();
             pw.writeln("@Override");
             if (internalVars.containsKey(name)) {
-              pw.writeln(e.value + " { this.${internalVars[name]} = arg0 }");
+              pw.writeln("${e.value} { this.${internalVars[name]} = arg0 }");
             } else {
-              pw.writeln(e.value + " { /* required for newer calculator */ }");
+              pw.writeln("${e.value} { /* required for newer calculator */ }");
             }
           }
         }
@@ -207,9 +206,9 @@ class PapHandler {
             pw.appendln();
             pw.writeln("@Override");
             if (internalVars.containsKey(name)) {
-              pw.writeln(e.value + " { return ${internalVars[name]}; }");
+              pw.writeln("${e.value} { return ${internalVars[name]}; }");
             } else {
-              pw.writeln(e.value + " { /* required for newer calculator */ return null; }");
+              pw.writeln("${e.value} { /* required for newer calculator */ return null; }");
             }
           }
         }
@@ -245,22 +244,18 @@ class PapHandler {
           if (qName == "INPUT") {
             String uname = firstUpper(name);
             String pre = "public void set$uname($type arg0)";
-            inputVars[uname] = pre + " { this.$name = arg0; }";
+            inputVars[uname] = "$pre { this.$name = arg0; }";
             printLastComment(piw);
-            if (piw != null) {
-              piw.writeln(pre + ";");
-              inputInterfaceVars[uname] = pre;
-            }
-          } else if (qName == "OUTPUT") {
+            piw.writeln("$pre;");
+            inputInterfaceVars[uname] = pre;
+                    } else if (qName == "OUTPUT") {
             String uname = firstUpper(name);
             String pre = "public $type get$uname()";
-            outputVars[uname] = pre + " { return this.$name; }";
+            outputVars[uname] = "$pre { return this.$name; }";
             printLastComment(piw);
-            if (piw != null) {
-              piw.writeln(pre + ";");
-              outputInterfaceVars[uname] = pre;
-            }
-          }
+            piw.writeln("$pre;");
+            outputInterfaceVars[uname] = pre;
+                    }
         }
       } else if (qName == "CONSTANT") {
         if (constants) {
@@ -278,7 +273,7 @@ class PapHandler {
       } else if (qName == "EXECUTE") {
         String method = element.getAttribute('method') ?? '';
         pw.appendln();
-        pw.write(method + "();");
+        pw.write("$method();");
       } else if (qName == "METHOD") {
         String methodName = element.getAttribute('name') ?? '';
         pw.writeln("protected void $methodName() {");
@@ -287,7 +282,7 @@ class PapHandler {
       } else if (qName == "EVAL") {
         String exec = element.getAttribute('exec') ?? '';
         pw.appendln();
-        pw.write(exec + ";");
+        pw.write("$exec;");
       } else if (qName == "IF") {
         String expr = element.getAttribute('expr') ?? '';
         pw.appendln();

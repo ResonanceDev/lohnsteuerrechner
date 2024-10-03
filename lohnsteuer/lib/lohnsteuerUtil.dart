@@ -1,13 +1,13 @@
 import 'package:decimal/decimal.dart';
 import 'package:rational/rational.dart';
 
-Decimal roundUp(Decimal value, int scale) {
+Decimal roundUp(int scale,Decimal value) {
   final Decimal multiplier = Rational.fromInt(10).pow(scale).toDecimal();
   final Decimal scaledValue = (value * multiplier).ceil();
   return (scaledValue / multiplier).toDecimal();
 }
 
-Decimal roundDown(Decimal value, int scale) {
+Decimal roundDown(int scale,Decimal value,) {
   final Decimal multiplier = Rational.fromInt(10).pow(scale).toDecimal();
   final Decimal scaledValue = (value * multiplier).floor();
   return (scaledValue / multiplier).toDecimal();
@@ -16,10 +16,10 @@ Decimal roundDown(Decimal value, int scale) {
 extension SetScale on Decimal{
   setScale(int scale, Round round) {
     if (round == Round.UP) {
-      return roundUp(this, scale);
+      return roundUp(scale, this);
     }
     else{
-      return roundDown(this,scale);
+      return roundDown(scale, this);
     }
   }
 }
@@ -32,11 +32,11 @@ enum Round{
 extension Divide on Decimal {
   Decimal divide(Decimal other, int scale, Round round) {
     if (round == Round.UP) {
-      return roundUp((this / other) as Decimal, scale);
+      return roundUp(scale,(this / other) as Decimal, );
     }
     else
     {
-      return roundDown((this / other) as Decimal, scale);
+      return roundDown(scale,(this / other).toDecimal());
     }
   }
 
@@ -48,11 +48,11 @@ extension Divide on Decimal {
 extension Multiply on Decimal {
   Decimal multiply(Decimal other, int scale, Round round) {
     if (round == Round.UP) {
-      return roundUp(this * other, scale);
+      return roundUp(scale, this * other);
     }
     else
     {
-      return roundDown(this * other, scale);
+      return roundDown(scale,this * other);
     }
   }
 
@@ -70,12 +70,12 @@ extension Add on Decimal {
 extension RoundUp on Decimal {
   Decimal round_Up()
   {
-    return roundUp(this, 2);
+    return roundUp(2,this);
   }
 }
 extension RoundDown on Decimal {
   Decimal round_Down()
   {
-    return roundDown(this, 2);
+    return roundDown(2,this);
   }
 }

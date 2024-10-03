@@ -573,7 +573,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
   }
 
   void MPARA() {
-    if (KRV < 2) {
+    if (KRV< 2) {
       if (KRV == 0) {
         BBGRV = Decimal.parse("90600");
       } else {
@@ -596,7 +596,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
     if (PVZ == 1) {
       PVSATZAN += Decimal.parse("0.006");
     } else {
-      PVSATZAN -= PVA * Decimal.parse("0.025");
+      PVSATZAN -= PVA * Decimal.parse("0.0025");
     }
     W1STKL5 = Decimal.parse("13279");
     W2STKL5 = Decimal.parse("33380");
@@ -607,41 +607,26 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
 
   void MRE4JL() {
     if (LZZ == 1) {
-      ZRE4J = (RE4 / (ZAHL100)).toDecimal();
-      ZRE4J = roundDown(ZRE4J,2);
-      ZVBEZJ = (VBEZ / (ZAHL100)).toDecimal();
-      ZVBEZJ = roundDown(ZVBEZJ,2);
-      JLFREIB = (LZZFREIB / (ZAHL100)).toDecimal();
-      JLFREIB = roundDown(JLFREIB,2);
-      JLHINZU = (LZZHINZU / (ZAHL100)).toDecimal();
-      JLHINZU = roundDown(JLHINZU,2);
+      ZRE4J = (RE4.divide(ZAHL100,2, Round.DOWN));
+      ZVBEZJ = (VBEZ.divide(ZAHL100, 2, Round.DOWN));
+      JLFREIB = (LZZFREIB.divide(ZAHL100,2, Round.DOWN));
+      JLHINZU = (LZZHINZU.divide(ZAHL100, 2, Round.DOWN));
 
     } else if (LZZ == 2) {
-      ZRE4J = ((RE4 * (ZAHL12)) / (ZAHL100)).toDecimal();
-      ZRE4J = roundDown(ZRE4J,2);
-      ZVBEZJ = ((VBEZ * (ZAHL12)) / (ZAHL100)).toDecimal();
-      ZVBEZJ = roundDown(ZVBEZJ,2);
-      JLFREIB = ((LZZFREIB * (ZAHL12)) / (ZAHL100)).toDecimal();
-      JLFREIB = roundDown(JLFREIB,2);
-      JLHINZU = ((LZZHINZU * (ZAHL12)) / (ZAHL100)).toDecimal();
-      JLHINZU = roundDown(JLHINZU,2);
+      ZRE4J = ((RE4 * (ZAHL12).divide(ZAHL100, 2, Round.DOWN)));
+      ZVBEZJ = ((VBEZ * (ZAHL12)).divide(ZAHL100, 2, Round.DOWN));
+      JLFREIB = ((LZZFREIB * (ZAHL12)).divide(ZAHL100, 2, Round.DOWN));
+      JLHINZU = ((LZZHINZU * (ZAHL12)).divide(ZAHL100, 2, Round.DOWN));
     } else if (LZZ == 3) {
-      ZRE4J = ((RE4 * (ZAHL360)) / (ZAHL700)).toDecimal();
-      ZRE4J = roundDown(ZRE4J,2);
-      ZVBEZJ = ((VBEZ * (ZAHL360)) / (ZAHL700)).toDecimal();
-      ZVBEZJ = roundDown(ZVBEZJ,2);
-      JLFREIB = ((LZZFREIB * (ZAHL360)) / (ZAHL700)).toDecimal();
-      JLFREIB = roundDown(JLFREIB,2);
-      JLHINZU = ((LZZHINZU * (ZAHL360)) / (ZAHL700)).toDecimal();
-      JLHINZU = roundDown(JLHINZU,2);
+      ZRE4J = ((RE4 * (ZAHL360)).divide(ZAHL700, 2, Round.DOWN));
+      ZVBEZJ = ((VBEZ * (ZAHL360)).divide(ZAHL700, 2, Round.DOWN));
+      JLFREIB = ((LZZFREIB * (ZAHL360)).divide(ZAHL700, 2, Round.DOWN));
+      JLHINZU = ((LZZHINZU * (ZAHL360)).divide(ZAHL700, 2, Round.DOWN));
     } else {
-      ZRE4J = ((RE4 * (ZAHL360)) / (ZAHL100)).toDecimal();
-      ZRE4J = roundDown(ZRE4J,2);
-      ZVBEZJ = ((VBEZ * (ZAHL360)) / (ZAHL100)).toDecimal();
-      JLFREIB = ((LZZFREIB * (ZAHL360)) / (ZAHL100)).toDecimal();
-      JLFREIB = roundDown(JLFREIB,2);
-      JLHINZU = ((LZZHINZU * (ZAHL360)) / (ZAHL100)).toDecimal();
-      JLHINZU = roundDown(JLHINZU,2);
+      ZRE4J = ((RE4 * (ZAHL360)).divide(ZAHL100, 2, Round.DOWN));
+      ZVBEZJ = ((VBEZ * (ZAHL360)).divide(ZAHL100, 2, Round.DOWN));
+      JLFREIB = ((LZZFREIB * (ZAHL360)).divide(ZAHL100, 2, Round.DOWN));
+      JLHINZU = ((LZZHINZU * (ZAHL360)).divide(ZAHL100, 2, Round.DOWN));
     }
     if (af == 0) {
       f = 1;
@@ -664,27 +649,24 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
       }
       if (LZZ == 1) {
         VBEZB = (VBEZM * (Decimal.parse(ZMVB.toString())) + VBEZS);
-        VBEZB = roundDown(VBEZB, 2);
         HFVB = ((TAB2[J] / ZAHL12) * Rational.fromInt(ZMVB)).toDecimal();
-        FVBZ = ((TAB3[J] / ZAHL12) * Rational.fromInt(ZMVB)).toDecimal();
-        FVBZ = roundUp(FVBZ, 0);
+        FVBZ = ((TAB3[J] / ZAHL12) * Rational.fromInt(ZMVB)).toDecimal().setScale(0, Round.UP);
+
       } else {
-        VBEZB = ((VBEZM * (ZAHL12)) + VBEZS);
-        VBEZB = roundDown(VBEZB, 2);
+        VBEZB = ((VBEZM * (ZAHL12)) + VBEZS).setScale(2, Round.UP);
         HFVB = TAB2[J];
         FVBZ = TAB3[J];
       }
-      FVB = ((VBEZB * TAB1[J]) / (ZAHL100)).toDecimal();
-      FVB = roundUp(FVB,2);
-      if (FVB > HFVB) {
+      FVB = ((VBEZB * TAB1[J]) / (ZAHL100)).toDecimal().setScale(2, Round.UP);
+      if (FVB.compareTo(HFVB)==1) {
         FVB = HFVB;
       }
-      if (FVB > ZVBEZJ) {
+      if (FVB.compareTo(ZVBEZJ)==1) {
         FVB = ZVBEZJ;
       }
       FVBSO =
       (FVB + ((VBEZBSO * TAB1[J]).divide(ZAHL100,2,Round.UP)));
-      if (FVBSO > TAB2[J]) {
+      if (FVBSO.compareTo(TAB2[J])==1) {
         FVBSO = TAB2[J];
       }
       HFVBZSO =
@@ -693,12 +675,12 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
       if (FVBZSO > HFVBZSO) {
         FVBZSO = HFVBZSO.round_Up();
       }
-      if (FVBZSO > TAB3[J]) {
+      if(FVBZSO.compareTo (HFVBZSO) == 1) {
         FVBZSO = TAB3[J];
       }
       HFVBZ = (((VBEZB / (ZAHL100)) - FVB.toRational()).toDecimal()).round_Down();
-      if (FVBZ > HFVBZ) {
-        FVBZ = roundUp(HFVBZ,0);
+      if(FVBZ.compareTo (HFVBZ) == 1) {
+        FVBZ = HFVBZ.setScale(0, Round.UP);
       }
     }
     MRE4ALTE();
@@ -726,7 +708,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
 
   void MRE4ABZ() {
     ZRE4 = ((ZRE4J - FVB - ALTE - JLFREIB + JLHINZU)).setScale(2, Round.DOWN);
-    if (ZRE4 < (Decimal.zero)) {
+    if (ZRE4.compareTo(Decimal.zero)==-1) {
       ZRE4 = (Decimal.zero);
     }
     ZRE4VP = ZRE4J;
@@ -734,7 +716,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
       ZRE4VP = (ZRE4VP - (ENTSCH / (ZAHL100)).toDecimal()).setScale(2, Round.DOWN);
     }
     ZVBEZ = (ZVBEZJ - FVB).setScale(2, Round.DOWN);
-    if (ZVBEZ < (Decimal.zero)) {
+    if (ZVBEZ.compareTo(Decimal.zero) ==-1) {
       ZVBEZ = (Decimal.zero);
     }
   }
@@ -744,13 +726,13 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
     VFRB = ((ANP + FVB + FVBZ) * (ZAHL100)).setScale(0,Round.DOWN);
     MLSTJAHR();
     WVFRB = ((ZVE - GFB) * (ZAHL100)).setScale(0, Round.DOWN);
-    if (WVFRB < (Decimal.zero)) {
+    if (WVFRB.compareTo(Decimal.zero)==-1) {
       WVFRB = (Decimal.zero);
     }
     LSTJAHR = (ST * (Decimal.parse(f.toString()))).setScale(0,Round.DOWN);
     UPLSTLZZ();
     UPVKVLZZ();
-    if (ZKF > (Decimal.zero)) {
+    if (ZKF.compareTo(Decimal.zero)==1) {
       ZTABFB = ZTABFB + KFB;
       MRE4ABZ();
       MLSTJAHR();
@@ -763,12 +745,12 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
 
   void MZTABFB() {
     ANP = (Decimal.zero);
-    if (ZVBEZ >= (Decimal.zero) && ZVBEZ < FVBZ) {
+    if (ZVBEZ.compareTo(Decimal.zero) >= 0 && ZVBEZ.compareTo(FVBZ) ==-1) {
       FVBZ = Decimal.parse(ZVBEZ.toString());
     }
     if (STKL < 6) {
-      if (ZVBEZ > (Decimal.zero)) {
-        if ((ZVBEZ - FVBZ) < (Decimal.parse("102"))) {
+      if (ZVBEZ.compareTo(Decimal.zero)==1) {
+        if ((ZVBEZ - FVBZ).compareTo(Decimal.parse("102"))==-1) {
           ANP = (ZVBEZ - FVBZ).setScale(0, Round.UP);
         } else {
           ANP = Decimal.parse("102");
@@ -779,8 +761,8 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
       FVBZSO = (Decimal.zero);
     }
     if (STKL < 6) {
-      if (ZRE4 > ZVBEZ) {
-        if ((ZRE4 - ZVBEZ) < (Decimal.parse("1230"))) {
+      if(ZRE4.compareTo(ZVBEZ) == 1) {
+        if ((ZRE4 - ZVBEZ).compareTo(Decimal.parse("1230"))==-1) {
           ANP = ANP + (ZRE4 - ZVBEZ).setScale(0, Round.UP);
         } else {
           ANP = ANP + (Decimal.parse("1230"));
@@ -819,7 +801,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
     } else {
       ZVE = (ZRE4 - ZTABFB - VSP - (VMT / (ZAHL100)).toDecimal() -
           (VKAPA / (ZAHL100)).toDecimal()).setScale(2,Round.DOWN);
-      if (ZVE < (Decimal.zero)) {
+      if (ZVE.compareTo(Decimal.zero)==-1) {
         ZVE = ((ZVE + (VMT / (ZAHL100)).toDecimal() +
             (VKAPA / (ZAHL100)).toDecimal()) / (ZAHL5)).toDecimal().setScale(2, Round.DOWN);
         UPMLST();
@@ -843,7 +825,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
 
   void UPVKV() {
     if (PKV > 0) {
-      if (VSP2 > VSP3) {
+      if (VSP2.compareTo(VSP3)==1) {
         VKV = VSP2 * (ZAHL100);
       } else {
         VKV = VSP3 * (ZAHL100);
@@ -860,7 +842,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
   }
 
   void UPMLST() {
-    if (ZVE < (ZAHL1)) {
+    if (ZVE.compareTo(ZAHL1)==-1) {
       ZVE = (Decimal.zero);
       X = (Decimal.zero);
     } else {
@@ -877,29 +859,29 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
     if (KRV > 1) {
       VSP1 = (Decimal.zero);
     } else {
-      if (ZRE4VP > BBGRV) {
+      if(ZRE4VP.compareTo(BBGRV) == 1) {
         ZRE4VP = BBGRV;
       }
-      VSP1 = (ZRE4VP * RVSATZAN).setScale(0, Round.DOWN);
+      VSP1 = (ZRE4VP * RVSATZAN).setScale(2, Round.DOWN);
     }
-    VSP2 = (ZRE4VP * (Decimal.parse("12"))).setScale(2, Round.DOWN);
+    VSP2 = (ZRE4VP * (Decimal.parse("0.12"))).setScale(2, Round.DOWN);
     if (STKL == 3) {
       VHB = Decimal.parse("3000");
     } else {
       VHB = Decimal.parse("1900");
     }
-    if (VSP2 > VHB) {
+    if (VSP2.compareTo(VHB)==1) {
       VSP2 = VHB;
     }
     VSPN = (VSP1 + VSP2).setScale(0, Round.DOWN);
     MVSP();
-    if (VSPN > VSP) {
+    if (VSPN.compareTo(VSP)==1) {
       VSP = VSPN.setScale(2, Round.DOWN);
     }
   }
 
   void MVSP() {
-    if (ZRE4VP > BBGKVPV) {
+    if (ZRE4VP.compareTo(BBGKVPV)==1) {
       ZRE4VP = BBGKVPV;
     }
     if (PKV > 0) {
@@ -919,26 +901,25 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
 
   void MST5_6() {
     ZZX = X;
-    if (ZZX > W2STKL5) {
+    if(ZZX.compareTo(W2STKL5) == 1) {
       ZX = W2STKL5;
       UP5_6();
-      if (ZZX > W3STKL5) {
-        ST = ST + ((W3STKL5 - W2STKL5) * ((Decimal.parse("42")))).setScale(0, Round.DOWN);
-        ST = ST + ((ZZX - W3STKL5) * ((Decimal.parse("45"))))
+      if(ZZX.compareTo (W3STKL5) == 1) {
+        ST = ST + ((W3STKL5 - W2STKL5) * ((Decimal.parse("0.42")))).setScale(0, Round.DOWN);
+        ST = ST + ((ZZX - W3STKL5) * ((Decimal.parse("0.45"))))
             .setScale(0, Round.DOWN);
       } else {
-        ST = ST + ((ZZX - W2STKL5) * ((Decimal.parse("42"))))
+        ST = ST + ((ZZX - W2STKL5) * ((Decimal.parse("0.42"))))
             .setScale(0, Round.DOWN);
       }
     } else {
       ZX = ZZX;
       UP5_6();
-      if (ZZX > W1STKL5) {
+      if(ZZX.compareTo (W1STKL5) == 1) {
         VERGL = ST;
         ZX = W1STKL5;
         UP5_6();
-        HOCH = ST + ((ZZX - W1STKL5) * ((Decimal.parse("42"))))
-            .setScale(0, Round.DOWN);
+        HOCH = ST + ((ZZX - W1STKL5) * ((Decimal.parse("0.42")))).setScale(0, Round.DOWN);
         if (HOCH < VERGL) {
           ST = HOCH;
         } else {
@@ -1005,8 +986,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
     if (ZMVB == 0) {
       ZMVB = 12;
     }
-    if (SONSTB == (Decimal.zero) &&
-        MBV == (Decimal.zero)) { // neu für 2022
+    if (SONSTB.compareTo(Decimal.zero) == 0 && MBV.compareTo(Decimal.zero)==0) { // neu für 2022
       VKVSONST = (Decimal.zero);
       LSTSO = (Decimal.zero);
       STS = (Decimal.zero);
@@ -1021,7 +1001,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
       VBEZBSO = STERBE;
       MRE4SONST();
       MLSTJAHR();
-      WVFRBM = ((ZVE - GFB) * (ZAHL100)/(Decimal.parse("1"))).toDecimal().setScale(2,Round.DOWN);;
+      WVFRBM = ((ZVE - GFB) * (ZAHL100).setScale(2,Round.DOWN));
       if (WVFRBM.compareTo(Decimal.zero) == -1) { // WVFRBM < 0
         WVFRBM = (Decimal.zero);
       }
@@ -1102,8 +1082,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
       }
       VBEZBSO = STERBE + VKAPA;
       ZRE4J = ((JRE4 + SONSTB + VMT + VKAPA)/(ZAHL100)).toDecimal().setScale(2, Round.DOWN);
-      ZVBEZJ =
-      ((JVBEZ + VBS + VKAPA)/(ZAHL100)).toDecimal().setScale(2,Round.DOWN);
+      ZVBEZJ = ((JVBEZ + VBS + VKAPA)/(ZAHL100)).toDecimal().setScale(2,Round.DOWN);
       KENNVMT = 2;
       MRE4SONST();
       MLSTJAHR();
@@ -1182,7 +1161,7 @@ class Lohnsteuer2024 implements LohnsteuerInterface {
       RW = Y * (Decimal.parse("181.19")); // Geändert für 2024
       RW = RW+(Decimal.parse("2397"));
       RW = RW*Y;
-      ST = (RW + (Decimal.parse("102538"))).setScale(0, Round.DOWN); // Geändert für 2024
+      ST = (RW + (Decimal.parse("1025.38"))).setScale(0, Round.DOWN); // Geändert für 2024
     } else if (X.compareTo(Decimal.parse("277826"))==-1) { // Geändert für 2022
       ST = (X * ((Decimal.parse("0.42")) - (Decimal.parse("10602.13")).setScale(0, Round.DOWN))); // Geändert für 2024
     } else {

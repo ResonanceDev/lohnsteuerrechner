@@ -55,7 +55,8 @@ void main() {
       expect(awesome.isAwesome, isTrue);
     });
 
+
     print("lol");
-     print(lohnsteuer.getLstlzz().toDouble() / 100);
+     print(lohnsteuer.getLstlzz()/100.toDecimal());
   });
 }

@@ -32,16 +32,16 @@ enum Round{
 extension Divide on Decimal {
   Decimal divide(Decimal other, int scale, Round round) {
     if (round == Round.UP) {
-      return roundUp(scale,(this / other) as Decimal, );
+      return  roundUp(scale, Decimal.parse((this.toDouble() / other.toDouble()).toString()));
     }
     else
     {
-      return roundDown(scale,(this / other).toDecimal());
+      return roundDown(scale,Decimal.parse((this.toDouble() / other.toDouble()).toString()));
     }
   }
 
   Rational dividePlain(Decimal other) {
-    return this / other;
+    return this.round(scale: 10) / other.round(scale: 10);
   }
 }
 

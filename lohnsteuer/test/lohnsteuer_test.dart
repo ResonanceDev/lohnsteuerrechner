@@ -44,7 +44,7 @@ void main() {
     lohnsteuer.setVjahr(2024);
     lohnsteuer.setR(0);
     lohnsteuer.setJre4(Decimal.parse("0")); // -> Herausfinden was das ist
-    lohnsteuer.setLzz(1);
+    lohnsteuer.setLzz(2);
     lohnsteuer.setStkl(1);
 
     lohnsteuer.main();
@@ -61,6 +61,6 @@ void main() {
     testRound = roundDown(1, testRound);
     print(testRound);
     print("lol");
-     print(lohnsteuer.getLstlzz()/100.toDecimal());
+     print((lohnsteuer.getLstlzz()/100.toDecimal()).toDecimal());
   });
 }

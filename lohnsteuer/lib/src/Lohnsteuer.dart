@@ -1,3 +1,24 @@
+import 'package:lohnsteuer/src/Lohnsteuer2006.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2007.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2008.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2009.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2010.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2011.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2011Dezember.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2012.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2013.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2014.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2015.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2015Dezember.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2016.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2017.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2018.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2019.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2020.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2021.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2022.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2023.dart';
+import 'package:lohnsteuer/src/Lohnsteuer2023AbJuli.dart';
 import 'package:lohnsteuer/src/Lohnsteuer2024.dart';
 import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 
@@ -14,7 +35,7 @@ class Lohnsteuer {
   }
 
   static LohnsteuerInterface getInstance(DateTime? date) {
-    /*if (date != null) {
+    if (date != null) {
       int year = date.year;
       int month = date.month;
 
@@ -84,8 +105,8 @@ class Lohnsteuer {
       if (year == 2006 && month >= 1 && month <= 12) {
         return Lohnsteuer2006();
       }
-      throw ArgumentError('Illegal Date ${DateFormat('yyyy-MM-dd').format(date)}');
-    }*/
+      throw ArgumentError('Illegal Date, format should be ${('yyyy-MM-dd')}');
+    }
 
     return Lohnsteuer2024();
   }

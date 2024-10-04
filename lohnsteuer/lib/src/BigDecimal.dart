@@ -1,7 +1,6 @@
 // Wrapper class for conversion from Java to Dart to avoid
 // conflicts when copying .java code
 
-import 'package:lohnsteuer/lohnsteuerUtil.dart';
 import 'package:rational/rational.dart';
 
 class BigDecimal

@@ -1,10 +1,19 @@
 Lohnsteuer
 ==========
 
+Dieser Code ist eine Konvertierung des bereits existierenden Lohnsteuerrechners von Marcel Lehmann
+Quelle: <a target="_blank" href="https://github.com/MarcelLehmann/Lohnsteuer">https:/&#47;MarcelLehmann/Lohnsteuer</a>
+
+Der Generator wurde nicht uebersetzt.
+
+Das Ausgangsprojekt von Marcel Lehmann dient zur Generation von .java Dateien, die dann hier zu .dart
+Dateien mit Hilfe einer Wrapper-Klasse per Hand zu konvertieren.
+
 
 <h3>Lizenzinformation</h3>
 
     Copyright 2015-2023 Marcel Lehmann
+    Copyright 2024 Robin Pietz, Sergej Frank
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

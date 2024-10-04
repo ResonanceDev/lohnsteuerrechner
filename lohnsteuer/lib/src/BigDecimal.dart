@@ -14,6 +14,11 @@ class BigDecimal
 
   static var ZERO =  BigDecimal(0);
   static var ONE =  BigDecimal(1);
+  static var TEN =  BigDecimal(10);
+
+
+
+
   static BigDecimal valueOf(num) {
     if(num.runtimeType == double)
       {
@@ -77,7 +82,7 @@ BigDecimal roundDown(int scale,BigDecimal value,) {
 }
 
 extension SetScale on BigDecimal{
-  setScale(int scale, Round round) {
+  setScale(int scale, [Round round = Round.DOWN]) {
     if (round == Round.UP) {
       return roundUp(scale, this);
     }

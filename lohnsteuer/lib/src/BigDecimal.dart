@@ -113,9 +113,17 @@ extension RoundDown on BigDecimal {
 }
 
 extension CompareTo on BigDecimal{
-  bool compareTo(BigDecimal other)
+  int compareTo(BigDecimal other)
   {
-    return this.num >= other.num;
+    if(this.num < other.num)
+      {
+        return -1;
+      }
+    if(this.num > other.num)
+      {
+        return 1;
+      }
+    return 0;
   }
 }
 
@@ -125,7 +133,7 @@ extension LongValue on BigDecimal{
   }
 }
 
-extension GreaterThan on bool{
+extension Operator on bool{
   bool operator >= (int other)
   {
     var temp = -1;

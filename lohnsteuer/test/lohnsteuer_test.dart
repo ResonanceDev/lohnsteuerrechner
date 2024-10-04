@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:lohnsteuer/lohnsteuer.dart';
 import 'package:lohnsteuer/lohnsteuerUtil.dart';
+import 'package:lohnsteuer/src/BigDecimal.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -40,10 +41,10 @@ void main() {
 
 
     Decimal brutto = Decimal.parse("350000");
-    lohnsteuer.setRe4(brutto); // -> WICHTIGSTE ANGABE -> BURTTO-LOHN
+    lohnsteuer.setRe4(BigDecimal(350000)); // -> WICHTIGSTE ANGABE -> BURTTO-LOHN
     lohnsteuer.setVjahr(2024);
     lohnsteuer.setR(0);
-    lohnsteuer.setJre4(Decimal.parse("0")); // -> Herausfinden was das ist
+    lohnsteuer.setJre4(BigDecimal(0)); // -> Herausfinden was das ist
     lohnsteuer.setLzz(2);
     lohnsteuer.setStkl(1);
 
@@ -58,9 +59,9 @@ void main() {
     });
 
     Decimal testRound = Decimal.parse("1.55");
-    testRound = roundDown(1, testRound);
+    //testRound = roundDown(1, testRound);
     print(testRound);
     print("lol");
-     print((lohnsteuer.getLstlzz()/100.toDecimal()).toDecimal());
+     print((lohnsteuer.getLstlzz().divide(BigDecimal(100)).num));
   });
 }

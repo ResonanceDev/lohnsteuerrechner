@@ -5,6 +5,7 @@ library;
 
 export 'src/lohnsteuer_base.dart';
 export 'src/Lohnsteuer.dart';
+export 'src/Lohnsteuer2023.dart';
 export 'src/Lohnsteuer2024.dart';
 export 'src/LohnsteuerInterface.dart';
 

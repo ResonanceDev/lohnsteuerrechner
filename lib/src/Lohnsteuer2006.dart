@@ -1,12 +1,10 @@
 import 'package:lohnsteuerrechenr/src/BigDecimal.dart';
 import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 
-/**
- * 
- * @author Marcel Lehmann (https://github.com/MarcelLehmann/Lohnsteuer) 
- * @date Fri Mar 15 08:35:04 CET 2024
- * 
- */
+/// 
+/// @author Marcel Lehmann (https://github.com/MarcelLehmann/Lohnsteuer) 
+/// @date Fri Mar 15 08:35:04 CET 2024
+/// 
 
  class Lohnsteuer2006 implements LohnsteuerInterface {
 
@@ -15,87 +13,87 @@ import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 
 	 int AJAHR = 0;
 	 int ALTER1 = 0;
-	 BigDecimal HINZUR = new BigDecimal(0);
-	 BigDecimal JFREIB = new BigDecimal(0);
-	 BigDecimal JHINZU = new BigDecimal(0);
-	 BigDecimal JRE4 = new BigDecimal(0);
-	 BigDecimal JVBEZ = new BigDecimal(0);
+	 BigDecimal HINZUR = BigDecimal(0);
+	 BigDecimal JFREIB = BigDecimal(0);
+	 BigDecimal JHINZU = BigDecimal(0);
+	 BigDecimal JRE4 = BigDecimal(0);
+	 BigDecimal JVBEZ = BigDecimal(0);
 	 int KRV = 0;
 	 int LZZ = 0;
 	 int R = 0;
-	 BigDecimal RE4 = new BigDecimal(0);
-	 BigDecimal SONSTB = new BigDecimal(0);
-	 BigDecimal STERBE = new BigDecimal(0);
+	 BigDecimal RE4 = BigDecimal(0);
+	 BigDecimal SONSTB = BigDecimal(0);
+	 BigDecimal STERBE = BigDecimal(0);
 	 int STKL = 0;
-	 BigDecimal VBEZ = new BigDecimal(0);
-	 BigDecimal VBEZM = new BigDecimal(0);
-	 BigDecimal VBEZS = new BigDecimal(0);
-	 BigDecimal VBS = new BigDecimal(0);
+	 BigDecimal VBEZ = BigDecimal(0);
+	 BigDecimal VBEZM = BigDecimal(0);
+	 BigDecimal VBEZS = BigDecimal(0);
+	 BigDecimal VBS = BigDecimal(0);
 	 int VJAHR = 0;
-	 BigDecimal VKAPA = new BigDecimal(0);
-	 BigDecimal VMT = new BigDecimal(0);
-	 BigDecimal WFUNDF = new BigDecimal(0);
-	 BigDecimal ZKF = new BigDecimal(0);
+	 BigDecimal VKAPA = BigDecimal(0);
+	 BigDecimal VMT = BigDecimal(0);
+	 BigDecimal WFUNDF = BigDecimal(0);
+	 BigDecimal ZKF = BigDecimal(0);
 	 int ZMVB = 0;
 
 	/* AUSGABEPARAMETER*/
 
-	 BigDecimal BK = new BigDecimal(0);
-	 BigDecimal BKS = new BigDecimal(0);
-	 BigDecimal BKV = new BigDecimal(0);
-	 BigDecimal LSTLZZ = new BigDecimal(0);
-	 BigDecimal SOLZLZZ = new BigDecimal(0);
-	 BigDecimal SOLZS = new BigDecimal(0);
-	 BigDecimal SOLZV = new BigDecimal(0);
-	 BigDecimal STS = new BigDecimal(0);
-	 BigDecimal STV = new BigDecimal(0);
+	 BigDecimal BK = BigDecimal(0);
+	 BigDecimal BKS = BigDecimal(0);
+	 BigDecimal BKV = BigDecimal(0);
+	 BigDecimal LSTLZZ = BigDecimal(0);
+	 BigDecimal SOLZLZZ = BigDecimal(0);
+	 BigDecimal SOLZS = BigDecimal(0);
+	 BigDecimal SOLZV = BigDecimal(0);
+	 BigDecimal STS = BigDecimal(0);
+	 BigDecimal STV = BigDecimal(0);
 
 	/* INTERNE FELDER*/
 
-	/** Altersentlastungsbetrag nach Alterseinkuenftegesetz in Cents */
-	 BigDecimal ALTE = new BigDecimal(0);
+	/// Altersentlastungsbetrag nach Alterseinkuenftegesetz in Cents
+	 BigDecimal ALTE = BigDecimal(0);
 
-	/** Arbeitnehmer-Pauschbetrag in EURO */
-	 BigDecimal ANP = new BigDecimal(0);
+	/// Arbeitnehmer-Pauschbetrag in EURO
+	 BigDecimal ANP = BigDecimal(0);
 
 	/** Auf den Lohnzahlungszeitraum entfallender Anteil von Jahreswerten<br>
              auf ganze Cents abgerundet */
-	 BigDecimal ANTEIL1 = new BigDecimal(0);
+	 BigDecimal ANTEIL1 = BigDecimal(0);
 
 	/** Auf den Lohnzahlungszeitraum entfallender Anteil von Jahreswerten<br>
              auf ganze Cents aufgerundet */
-	 BigDecimal ANTEIL2 = new BigDecimal(0);
+	 BigDecimal ANTEIL2 = BigDecimal(0);
 
-	/** Bemessungsgrundlage fuer Altersentlastungsbetrag in Cents */
-	 BigDecimal BMG = new BigDecimal(0);
+	/// Bemessungsgrundlage fuer Altersentlastungsbetrag in Cents
+	 BigDecimal BMG = BigDecimal(0);
 
-	/** Differenz zwischen ST1 und ST2 in EURO */
-	 BigDecimal DIFF = new BigDecimal(0);
+	/// Differenz zwischen ST1 und ST2 in EURO
+	 BigDecimal DIFF = BigDecimal(0);
 
-	/** Entlastungsbetrag fuer Alleinerziehende in EURO */
-	 BigDecimal EFA = new BigDecimal(0);
+	/// Entlastungsbetrag fuer Alleinerziehende in EURO
+	 BigDecimal EFA = BigDecimal(0);
 
-	/** Versorgungsfreibetrag in Cents */
-	 BigDecimal FVB = new BigDecimal(0);
+	/// Versorgungsfreibetrag in Cents
+	 BigDecimal FVB = BigDecimal(0);
 
-	/** Zuschlag zum Versorgungsfreibetrag in EURO */
-	 BigDecimal FVBZ = new BigDecimal(0);
+	/// Zuschlag zum Versorgungsfreibetrag in EURO
+	 BigDecimal FVBZ = BigDecimal(0);
 
-	/** Massgeblich maximaler Versorgungsfreibetrag in Cents */
-	 BigDecimal HFVB = new BigDecimal(0);
+	/// Massgeblich maximaler Versorgungsfreibetrag in Cents
+	 BigDecimal HFVB = BigDecimal(0);
 
-	/** Nummer der Tabellenwerte fuer Versorgungsparameter */
+	/// Nummer der Tabellenwerte fuer Versorgungsparameter
 	 int J = 0;
 
 	/** Jahressteuer nach § 51a EStG, aus der Solidaritaetszuschlag und<br>
              Bemessungsgrundlage fuer die Kirchenlohnsteuer ermittelt werden in EURO */
-	 BigDecimal JBMG = new BigDecimal(0);
+	 BigDecimal JBMG = BigDecimal(0);
 
 	/** Jahreswert, dessen Anteil fuer einen Lohnzahlungszeitraum in<br>
              UPANTEIL errechnet werden soll in Cents */
-	 BigDecimal JW = new BigDecimal(0);
+	 BigDecimal JW = BigDecimal(0);
 
-	/** Nummer der Tabellenwerte fuer Parameter bei Altersentlastungsbetrag */
+	/// Nummer der Tabellenwerte fuer Parameter bei Altersentlastungsbetrag
 	 int K = 0;
 
 	/** Kennzeichen bei Verguetung fuer mehrjaehrige Taetigkeit<br>
@@ -103,24 +101,24 @@ import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
              1 = beim Vorwegabzug ist ZRE4VP1 zu beruecksichtigen */
 	 int KENNZ = 0;
 
-	/** Summe der Freibetraege fuer Kinder in EURO */
-	 BigDecimal KFB = new BigDecimal(0);
+	/// Summe der Freibetraege fuer Kinder in EURO
+	 BigDecimal KFB = BigDecimal(0);
 
 	/** Kennzahl fuer die Einkommensteuer-Tabellenart:<br>
              1 = Grundtabelle<br>
              2 = Splittingtabelle */
 	 int KZTAB = 0;
 
-	/** Jahreslohnsteuer in EURO */
-	 BigDecimal LSTJAHR = new BigDecimal(0);
+	/// Jahreslohnsteuer in EURO
+	 BigDecimal LSTJAHR = BigDecimal(0);
 
-	/** Zwischenfelder der Jahreslohnsteuer in Cents */
-	 BigDecimal LST1 = new BigDecimal(0);
-	 BigDecimal LST2 = new BigDecimal(0);
-	 BigDecimal LST3 = new BigDecimal(0);
+	/// Zwischenfelder der Jahreslohnsteuer in Cents
+	 BigDecimal LST1 = BigDecimal(0);
+	 BigDecimal LST2 = BigDecimal(0);
+	 BigDecimal LST3 = BigDecimal(0);
 
-	/** Mindeststeuer fuer die Steuerklassen V und VI in EURO */
-	 BigDecimal MIST = new BigDecimal(0);
+	/// Mindeststeuer fuer die Steuerklassen V und VI in EURO
+	 BigDecimal MIST = BigDecimal(0);
 
 	/** Arbeitslohn des Lohnzahlungszeitraums nach Abzug der Freibetraege<br>
              fuer Versorgungsbezuege, des Altersentlastungsbetrags und des<br>
@@ -128,219 +126,219 @@ import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
              eines Hinzurechnungsbetrags in Cents. Entspricht dem Arbeitslohn,<br>
              fuer den die Lohnsteuer im personellen Verfahren aus der<br>
              zum Lohnzahlungszeitraum gehoerenden Tabelle abgelesen wuerde */
-	 BigDecimal RE4LZZ = new BigDecimal(0);
+	 BigDecimal RE4LZZ = BigDecimal(0);
 
 	/** Arbeitslohn des Lohnzahlungszeitraums nach Abzug der Freibetraege<br>
              fuer Versorgungsbezuege und des Altersentlastungsbetrags in<br>
              Cents zur Berechnung der Vorsorgepauschale */
-	 BigDecimal RE4LZZV = new BigDecimal(0);
+	 BigDecimal RE4LZZV = BigDecimal(0);
 
-	/** Rechenwert in Gleitkommadarstellung */
-	 BigDecimal RW = new BigDecimal(0);
+	/// Rechenwert in Gleitkommadarstellung
+	 BigDecimal RW = BigDecimal(0);
 
-	/** Sonderausgaben-Pauschbetrag in EURO */
-	 BigDecimal SAP = new BigDecimal(0);
+	/// Sonderausgaben-Pauschbetrag in EURO
+	 BigDecimal SAP = BigDecimal(0);
 
-	/** Freigrenze fuer den Solidaritaetszuschlag in EURO */
-	 BigDecimal SOLZFREI = new BigDecimal(0);
+	/// Freigrenze fuer den Solidaritaetszuschlag in EURO
+	 BigDecimal SOLZFREI = BigDecimal(0);
 
-	/** Solidaritaetszuschlag auf die Jahreslohnsteuer in EURO, C (2 Dezimalstellen) */
-	 BigDecimal SOLZJ = new BigDecimal(0);
+	/// Solidaritaetszuschlag auf die Jahreslohnsteuer in EURO, C (2 Dezimalstellen)
+	 BigDecimal SOLZJ = BigDecimal(0);
 
 	/** Zwischenwert fuer den Solidaritaetszuschlag auf die Jahreslohnsteuer<br>
              in EURO, C (2 Dezimalstellen) */
-	 BigDecimal SOLZMIN = new BigDecimal(0);
+	 BigDecimal SOLZMIN = BigDecimal(0);
 
-	/** Tarifliche Einkommensteuer in EURO */
-	 BigDecimal ST = new BigDecimal(0);
+	/// Tarifliche Einkommensteuer in EURO
+	 BigDecimal ST = BigDecimal(0);
 
-	/** Tarifliche Einkommensteuer auf das 1,25-fache ZX in EURO */
-	 BigDecimal ST1 = new BigDecimal(0);
+	/// Tarifliche Einkommensteuer auf das 1,25-fache ZX in EURO
+	 BigDecimal ST1 = BigDecimal(0);
 
-	/** Tarifliche Einkommensteuer auf das 0,75-fache ZX in EURO */
-	 BigDecimal ST2 = new BigDecimal(0);
+	/// Tarifliche Einkommensteuer auf das 0,75-fache ZX in EURO
+	 BigDecimal ST2 = BigDecimal(0);
 
-	/** Bemessungsgrundlage fuer den Versorgungsfreibetrag in Cents */
-	 BigDecimal VBEZB = new BigDecimal(0);
+	/// Bemessungsgrundlage fuer den Versorgungsfreibetrag in Cents
+	 BigDecimal VBEZB = BigDecimal(0);
 
-	/** Hoechstbetrag der Vorsorgepauschale nach Alterseinkuenftegesetz in EURO, C */
-	 BigDecimal VHB = new BigDecimal(0);
+	/// Hoechstbetrag der Vorsorgepauschale nach Alterseinkuenftegesetz in EURO, C
+	 BigDecimal VHB = BigDecimal(0);
 
-	/** Vorsorgepauschale in EURO, C (2 Dezimalstellen) */
-	 BigDecimal VSP = new BigDecimal(0);
+	/// Vorsorgepauschale in EURO, C (2 Dezimalstellen)
+	 BigDecimal VSP = BigDecimal(0);
 
-	/** Vorsorgepauschale nach Alterseinkuenftegesetz in EURO, C */
-	 BigDecimal VSPN = new BigDecimal(0);
+	/// Vorsorgepauschale nach Alterseinkuenftegesetz in EURO, C
+	 BigDecimal VSPN = BigDecimal(0);
 
 	/** Zwischenwert 1 bei der Berechnung der Vorsorgepauschale nach<br>
              dem Alterseinkuenftegesetz in EURO, C (2 Dezimalstellen) */
-	 BigDecimal VSP1 = new BigDecimal(0);
+	 BigDecimal VSP1 = BigDecimal(0);
 
 	/** Zwischenwert 2 bei der Berechnung der Vorsorgepauschale nach<br>
              dem Alterseinkuenftegesetz in EURO, C (2 Dezimalstellen) */
-	 BigDecimal VSP2 = new BigDecimal(0);
+	 BigDecimal VSP2 = BigDecimal(0);
 
-	/** Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 3 EStG in EURO */
-	 BigDecimal VSPKURZ = new BigDecimal(0);
+	/// Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 3 EStG in EURO
+	 BigDecimal VSPKURZ = BigDecimal(0);
 
-	/** Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 2 Nr. 2 EStG in EURO */
-	 BigDecimal VSPMAX1 = new BigDecimal(0);
+	/// Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 2 Nr. 2 EStG in EURO
+	 BigDecimal VSPMAX1 = BigDecimal(0);
 
-	/** Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 2 Nr. 3 EStG in EURO */
-	 BigDecimal VSPMAX2 = new BigDecimal(0);
+	/// Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 2 Nr. 3 EStG in EURO
+	 BigDecimal VSPMAX2 = BigDecimal(0);
 
 	/** Vorsorgepauschale nach § 10c Abs. 2 Satz 2 EStG vor der Hoechstbetragsberechnung<br>
              in EURO, C (2 Dezimalstellen) */
-	 BigDecimal VSPO = new BigDecimal(0);
+	 BigDecimal VSPO = BigDecimal(0);
 
 	/** Fuer den Abzug nach § 10c Abs. 2 Nrn. 2 und 3 EStG verbleibender<br>
              Rest von VSPO in EURO, C (2 Dezimalstellen) */
-	 BigDecimal VSPREST = new BigDecimal(0);
+	 BigDecimal VSPREST = BigDecimal(0);
 
 	/** Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 2 Nr. 1 EStG<br>
              in EURO, C (2 Dezimalstellen) */
-	 BigDecimal VSPVOR = new BigDecimal(0);
+	 BigDecimal VSPVOR = BigDecimal(0);
 
 	/** Zu versteuerndes Einkommen gem. § 32a Abs. 1 und 2 EStG<br>
              (2 Dezimalstellen) */
-	 BigDecimal X = new BigDecimal(0);
+	 BigDecimal X = BigDecimal(0);
 
-	/** gem. § 32a Abs. 1 EStG (6 Dezimalstellen) */
-	 BigDecimal Y = new BigDecimal(0);
+	/// gem. § 32a Abs. 1 EStG (6 Dezimalstellen)
+	 BigDecimal Y = BigDecimal(0);
 
-	/** Auf einen Jahreslohn hochgerechnetes RE4LZZ in EURO, C (2 Dezimalstellen) */
-	 BigDecimal ZRE4 = new BigDecimal(0);
+	/// Auf einen Jahreslohn hochgerechnetes RE4LZZ in EURO, C (2 Dezimalstellen)
+	 BigDecimal ZRE4 = BigDecimal(0);
 
 	/** Auf einen Jahreslohn hochgerechnetes RE4LZZV zur Berechnung<br>
              der Vorsorgepauschale in EURO, C (2 Dezimalstellen) */
-	 BigDecimal ZRE4VP = new BigDecimal(0);
+	 BigDecimal ZRE4VP = BigDecimal(0);
 
 	/** Sicherungsfeld von ZRE4VP in EURO,C bei der Berechnung des Vorwegabzugs<br>
              fuer die Verguetung fuer mehrjaehrige Taetigkeit */
-	 BigDecimal ZRE4VP1 = new BigDecimal(0);
+	 BigDecimal ZRE4VP1 = BigDecimal(0);
 
-	/** Feste Tabellenfreibetraege (ohne Vorsorgepauschale) in EURO */
-	 BigDecimal ZTABFB = new BigDecimal(0);
+	/// Feste Tabellenfreibetraege (ohne Vorsorgepauschale) in EURO
+	 BigDecimal ZTABFB = BigDecimal(0);
 
 	/** Auf einen Jahreslohn hochgerechnetes (VBEZ abzueglich FVB) in<br>
              EURO, C (2 Dezimalstellen) */
-	 BigDecimal ZVBEZ = new BigDecimal(0);
+	 BigDecimal ZVBEZ = BigDecimal(0);
 
-	/** Zu versteuerndes Einkommen in EURO */
-	 BigDecimal ZVE = new BigDecimal(0);
+	/// Zu versteuerndes Einkommen in EURO
+	 BigDecimal ZVE = BigDecimal(0);
 
 	/** Zwischenfelder zu X fuer die Berechnung der Steuer nach § 39b<br>
              Abs. 2 Satz 8 EStG in EURO. */
-	 BigDecimal ZX = new BigDecimal(0);
-	 BigDecimal ZZX = new BigDecimal(0);
-	 BigDecimal HOCH = new BigDecimal(0);
-	 BigDecimal VERGL = new BigDecimal(0);
+	 BigDecimal ZX = BigDecimal(0);
+	 BigDecimal ZZX = BigDecimal(0);
+	 BigDecimal HOCH = BigDecimal(0);
+	 BigDecimal VERGL = BigDecimal(0);
 
 	/* KONSTANTEN */
 
-	/** Tabelle fuer die Vomhundertsaetze des Versorgungsfreibetrags */
+	/// Tabelle fuer die Vomhundertsaetze des Versorgungsfreibetrags
 	 static final List<double> TAB1 = [0.0, 0.400, 0.384, 0.368, 0.352, 0.336, 0.320, 0.304, 0.288, 0.272, 0.256, 0.240, 0.224, 0.208, 0.192, 0.176, 0.160, 0.152, 0.144, 0.136, 0.128, 0.120, 0.112, 0.104, 0.096, 0.088, 0.080, 0.072, 0.064, 0.056, 0.048, 0.040, 0.032, 0.024, 0.016, 0.008, 0.000];
 
-	/** Tabelle fuer die Hoechstbetrage des Versorgungsfreibetrags */
+	/// Tabelle fuer die Hoechstbetrage des Versorgungsfreibetrags
 	 static final List<int> TAB2 = [0, 3000, 2880, 2760, 2640, 2520, 2400, 2280, 2160, 2040, 1920, 1800, 1680, 1560, 1440, 1320, 1200, 1140, 1080, 1020, 960, 900, 840, 780, 720, 660, 600, 540, 480, 420, 360, 300, 240, 180, 120, 60, 0];
 
-	/** Tabelle fuer die Zuschlaege zum Versorgungsfreibetrag */
+	/// Tabelle fuer die Zuschlaege zum Versorgungsfreibetrag
 	 static final List<int> TAB3 = [0, 900, 864, 828, 792, 756, 720, 684, 648, 612, 576, 540, 504, 468, 432, 396, 360, 342, 324, 306, 288, 270, 252, 234, 216, 198, 180, 162, 144, 126, 108, 90, 72, 54, 36, 18, 0];
 
-	/** Tabelle fuer die Vomhundertsaetze des Altersentlastungsbetrags */
+	/// Tabelle fuer die Vomhundertsaetze des Altersentlastungsbetrags
 	 static final List<double> TAB4 = [0.0, 0.400, 0.384, 0.368, 0.352, 0.336, 0.320, 0.304, 0.288, 0.272, 0.256, 0.240, 0.224, 0.208, 0.192, 0.176, 0.160, 0.152, 0.144, 0.136, 0.128, 0.120, 0.112, 0.104, 0.096, 0.088, 0.080, 0.072, 0.064, 0.056, 0.048, 0.040, 0.032, 0.024, 0.016, 0.008, 0.000];
 
-	/** Tabelle fuer die Hoechstbetraege des Altersentlastungsbetrags */
+	/// Tabelle fuer die Hoechstbetraege des Altersentlastungsbetrags
 	 static final List<int> TAB5 = [0, 1900, 1824, 1748, 1672, 1596, 1520, 1444, 1368, 1292, 1216, 1140, 1064, 988, 912, 836, 760, 722, 684, 646, 608, 570, 532, 494, 456, 418, 380, 342, 304, 266, 228, 190, 152, 114, 76, 38, 0];
 
-	/** Zahlenkonstanten fuer im Plan oft genutzte BigDecimal Werte */
-	 static final BigDecimal ZAHL0 = new BigDecimal(0);
-	 static final BigDecimal ZAHL1 = new BigDecimal(1);
-	 static final BigDecimal ZAHL2 = new BigDecimal(2);
-	 static final BigDecimal ZAHL3 = new BigDecimal(3);
-	 static final BigDecimal ZAHL4 = new BigDecimal(4);
-	 static final BigDecimal ZAHL5 = new BigDecimal(5);
-	 static final BigDecimal ZAHL6 = new BigDecimal(6);
-	 static final BigDecimal ZAHL7 = new BigDecimal(7);
-	 static final BigDecimal ZAHL8 = new BigDecimal(8);
-	 static final BigDecimal ZAHL9 = new BigDecimal(9);
-	 static final BigDecimal ZAHL10 = new BigDecimal(10);
-	 static final BigDecimal ZAHL11 = new BigDecimal(11);
-	 static final BigDecimal ZAHL12 = new BigDecimal(12);
-	 static final BigDecimal ZAHL100 = new BigDecimal(100);
-	 static final BigDecimal ZAHL360 = new BigDecimal(360);
+	/// Zahlenkonstanten fuer im Plan oft genutzte BigDecimal Werte
+	 static final BigDecimal ZAHL0 = BigDecimal(0);
+	 static final BigDecimal ZAHL1 = BigDecimal(1);
+	 static final BigDecimal ZAHL2 = BigDecimal(2);
+	 static final BigDecimal ZAHL3 = BigDecimal(3);
+	 static final BigDecimal ZAHL4 = BigDecimal(4);
+	 static final BigDecimal ZAHL5 = BigDecimal(5);
+	 static final BigDecimal ZAHL6 = BigDecimal(6);
+	 static final BigDecimal ZAHL7 = BigDecimal(7);
+	 static final BigDecimal ZAHL8 = BigDecimal(8);
+	 static final BigDecimal ZAHL9 = BigDecimal(9);
+	 static final BigDecimal ZAHL10 = BigDecimal(10);
+	 static final BigDecimal ZAHL11 = BigDecimal(11);
+	 static final BigDecimal ZAHL12 = BigDecimal(12);
+	 static final BigDecimal ZAHL100 = BigDecimal(100);
+	 static final BigDecimal ZAHL360 = BigDecimal(360);
 
 	/* SETTER */
 
 	@override
-	 void setRe4(BigDecimal arg0) { this.RE4 = arg0; }
+	 void setRe4(BigDecimal arg0) { RE4 = arg0; }
 
 	@override
-	 void setJvbez(BigDecimal arg0) { this.JVBEZ = arg0; }
+	 void setJvbez(BigDecimal arg0) { JVBEZ = arg0; }
 
-	 void setWfundf(BigDecimal arg0) { this.WFUNDF = arg0; }
-
-	@override
-	 void setSterbe(BigDecimal arg0) { this.STERBE = arg0; }
+	 void setWfundf(BigDecimal arg0) { WFUNDF = arg0; }
 
 	@override
-	 void setStkl(int arg0) { this.STKL = arg0; }
+	 void setSterbe(BigDecimal arg0) { STERBE = arg0; }
 
 	@override
-	 void setVbezm(BigDecimal arg0) { this.VBEZM = arg0; }
+	 void setStkl(int arg0) { STKL = arg0; }
 
 	@override
-	 void setVbs(BigDecimal arg0) { this.VBS = arg0; }
+	 void setVbezm(BigDecimal arg0) { VBEZM = arg0; }
 
 	@override
-	 void setAjahr(int arg0) { this.AJAHR = arg0; }
+	 void setVbs(BigDecimal arg0) { VBS = arg0; }
 
 	@override
-	 void setAlter1(int arg0) { this.ALTER1 = arg0; }
+	 void setAjahr(int arg0) { AJAHR = arg0; }
 
 	@override
-	 void setVbez(BigDecimal arg0) { this.VBEZ = arg0; }
+	 void setAlter1(int arg0) { ALTER1 = arg0; }
 
 	@override
-	 void setLzz(int arg0) { this.LZZ = arg0; }
+	 void setVbez(BigDecimal arg0) { VBEZ = arg0; }
 
 	@override
-	 void setKrv(int arg0) { this.KRV = arg0; }
+	 void setLzz(int arg0) { LZZ = arg0; }
 
 	@override
-	 void setJhinzu(BigDecimal arg0) { this.JHINZU = arg0; }
+	 void setKrv(int arg0) { KRV = arg0; }
 
 	@override
-	 void setJfreib(BigDecimal arg0) { this.JFREIB = arg0; }
-
-	 void setHinzur(BigDecimal arg0) { this.HINZUR = arg0; }
+	 void setJhinzu(BigDecimal arg0) { JHINZU = arg0; }
 
 	@override
-	 void setR(int arg0) { this.R = arg0; }
+	 void setJfreib(BigDecimal arg0) { JFREIB = arg0; }
+
+	 void setHinzur(BigDecimal arg0) { HINZUR = arg0; }
 
 	@override
-	 void setVkapa(BigDecimal arg0) { this.VKAPA = arg0; }
+	 void setR(int arg0) { R = arg0; }
 
 	@override
-	 void setJre4(BigDecimal arg0) { this.JRE4 = arg0; }
+	 void setVkapa(BigDecimal arg0) { VKAPA = arg0; }
 
 	@override
-	 void setZkf(BigDecimal arg0) { this.ZKF = arg0; }
+	 void setJre4(BigDecimal arg0) { JRE4 = arg0; }
 
 	@override
-	 void setZmvb(int arg0) { this.ZMVB = arg0; }
+	 void setZkf(BigDecimal arg0) { ZKF = arg0; }
 
 	@override
-	 void setVjahr(int arg0) { this.VJAHR = arg0; }
+	 void setZmvb(int arg0) { ZMVB = arg0; }
 
 	@override
-	 void setVbezs(BigDecimal arg0) { this.VBEZS = arg0; }
+	 void setVjahr(int arg0) { VJAHR = arg0; }
 
 	@override
-	 void setVmt(BigDecimal arg0) { this.VMT = arg0; }
+	 void setVbezs(BigDecimal arg0) { VBEZS = arg0; }
 
 	@override
-	 void setSonstb(BigDecimal arg0) { this.SONSTB = arg0; }
+	 void setVmt(BigDecimal arg0) { VMT = arg0; }
+
+	@override
+	 void setSonstb(BigDecimal arg0) { SONSTB = arg0; }
 
 	@override
 	 void setPkpv(BigDecimal arg0) { /* required for newer calculator */ }
@@ -387,31 +385,31 @@ import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 	/* GETTER */
 
 	@override
-	 BigDecimal getSts() { return this.STS; }
+	 BigDecimal getSts() { return STS; }
 
 	@override
-	 BigDecimal getLstlzz() { return this.LSTLZZ; }
+	 BigDecimal getLstlzz() { return LSTLZZ; }
 
 	@override
-	 BigDecimal getStv() { return this.STV; }
+	 BigDecimal getStv() { return STV; }
 
 	@override
-	 BigDecimal getSolzlzz() { return this.SOLZLZZ; }
+	 BigDecimal getSolzlzz() { return SOLZLZZ; }
 
 	@override
-	 BigDecimal getBk() { return this.BK; }
+	 BigDecimal getBk() { return BK; }
 
 	@override
-	 BigDecimal getSolzv() { return this.SOLZV; }
+	 BigDecimal getSolzv() { return SOLZV; }
 
 	@override
-	 BigDecimal getBks() { return this.BKS; }
+	 BigDecimal getBks() { return BKS; }
 
 	@override
-	 BigDecimal getBkv() { return this.BKV; }
+	 BigDecimal getBkv() { return BKV; }
 
 	@override
-	 BigDecimal getSolzs() { return this.SOLZS; }
+	 BigDecimal getSolzs() { return SOLZS; }
 
 	@override
 	 BigDecimal getVfrb() { /* required for newer calculator */ return BigDecimal(0);}
@@ -437,7 +435,7 @@ import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 	@override
 	 BigDecimal getWvfrbo() { /* required for newer calculator */ return BigDecimal(0);}
 
-	/** PROGRAMMABLAUFPLAN 2006 */
+	/// PROGRAMMABLAUFPLAN 2006
 	@override
 	 void main() {
 

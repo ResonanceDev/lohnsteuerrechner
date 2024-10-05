@@ -1,11 +1,8 @@
 import 'package:decimal/decimal.dart';
-import 'package:lohnsteuer/lohnsteuer.dart';
-import 'package:lohnsteuer/src/BigDecimal.dart';
-import 'package:test/test.dart';
+import 'package:lohnsteuerrechenr/lohnsteuer.dart';
+import 'package:lohnsteuerrechenr/src/BigDecimal.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
     final dt = DateTime(2024, 1,1 ,1);
 
     final lohnsteuer = Lohnsteuer.getInstance(dt);
@@ -31,5 +28,4 @@ void main() {
     lohnsteuer.main();
     print("\nLohnabzuege bei 3500 EUR Brutto: \n\n");
     print((lohnsteuer.getLstlzz().divide(BigDecimal(100)).num).toString() + ' EUR');
-  });
 }

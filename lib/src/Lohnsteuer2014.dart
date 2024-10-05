@@ -1,5 +1,5 @@
-import 'package:lohnsteuer/src/BigDecimal.dart';
-import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
+import 'package:lohnsteuerrechenr/src/BigDecimal.dart';
+import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 
 /**
  * 
@@ -8,9 +8,9 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
  * 
  */
 
- class Lohnsteuer2011Dezember implements LohnsteuerInterface {
+ class Lohnsteuer2014 implements LohnsteuerInterface {
 
-	/** Stand:  2015-11-16 */
+	/** Stand: 2013-11-18, 10:25 */
 	/** ZIVIT Düsseldorf */
 
 	/* EINGABEPARAMETER*/
@@ -60,14 +60,12 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	 BigDecimal SOLZV = new BigDecimal(0);
 	 BigDecimal STS = new BigDecimal(0);
 	 BigDecimal STV = new BigDecimal(0);
+	 BigDecimal VKVLZZ = new BigDecimal(0);
+	/** Neu 2014 Ursprünglich INTERNAL definiert */
+	 BigDecimal VKVSONST = new BigDecimal(0);
+	/** Neu 2014 Ursprünglich INTERNAL definiert */
 
 	/* INTERNE FELDER*/
-
-	/** Rentenbemessungs-Grenze neue Bundesländer in EUR */
-	 BigDecimal RENTBEMESSUNGSGR_OST_2011 = new BigDecimal(57600);
-
-	/** Rentenbemessungs-Grenze alte Bundesländer in EUR */
-	 BigDecimal RENTBEMESSUNGSGR_WEST = new BigDecimal(66000);
 
 	/** spezielles ZVE f. Einkommensteuer-Berechnung, dieses darf negativ werden. */
 	 BigDecimal zveEkSt = new BigDecimal(0);
@@ -83,10 +81,6 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	/** Auf den Lohnzahlungszeitraum entfallender Anteil von Jahreswerten<br>
              auf ganze Cents abgerundet */
 	 BigDecimal ANTEIL1 = new BigDecimal(0);
-
-	/** Auf den Lohnzahlungszeitraum entfallender Anteil von Jahreswerten<br>
-             auf ganze Cents aufgerundet */
-	 BigDecimal ANTEIL2 = new BigDecimal(0);
 
 	/** Bemessungsgrundlage für Altersentlastungsbetrag in €, Cent<br>
              (2 Dezimalstellen) */
@@ -240,6 +234,12 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
              dem Alterseinkuenftegesetz in EURO, C (2 Dezimalstellen) */
 	 BigDecimal VSP2 = new BigDecimal(0);
 
+	/** Vorsorgepauschale mit Teilbeträgen für die gesetzliche Kranken- und <br>
+			 soziale Pflegeversicherung nach fiktiven Beträgen oder ggf. für die<br>
+			 private Basiskrankenversicherung und private Pflege-Pflichtversicherung <br>
+			 in Euro, Cent (2 Dezimalstellen) */
+	 BigDecimal VSP3 = new BigDecimal(0);
+
 	/** Hoechstbetrag der Vorsorgepauschale nach § 10c Abs. 3 EStG in EURO */
 	 BigDecimal VSPKURZ = new BigDecimal(0);
 
@@ -301,6 +301,10 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	 BigDecimal HOCH = new BigDecimal(0);
 	 BigDecimal VERGL = new BigDecimal(0);
 
+	/** Jahreswert der berücksichtigten Beiträge zur privaten Basis-Krankenversicherung und <br>
+			  privaten Pflege-Pflichtversicherung (ggf. auch die Mindestvorsorgepauschale) in Cent. */
+	 BigDecimal VKV = new BigDecimal(0);
+
 	/* KONSTANTEN */
 
 	/** Tabelle fuer die Vomhundertsaetze des Versorgungsfreibetrags */
@@ -336,6 +340,17 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	 static final BigDecimal ZAHL360 = new BigDecimal(360);
 	 static final BigDecimal ZAHL500 = new BigDecimal(500);
 	 static final BigDecimal ZAHL700 = new BigDecimal(700);
+	 static final BigDecimal ZAHL1000 = new BigDecimal(1000);
+
+	/** Rentenbemessungs-Grenze neue Bundesländer in EUR */
+
+	/** Neuer Wert  2014 */
+	 static final BigDecimal RENTBEMESSUNGSGR_OST = new BigDecimal(60000);
+
+	/** Rentenbemessungs-Grenze alte Bundesländer in EUR */
+
+	/** Neuer Wert 2014 */
+	 static final BigDecimal RENTBEMESSUNGSGR_WEST = new BigDecimal(71400);
 
 	/* SETTER */
 
@@ -450,6 +465,9 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	/* GETTER */
 
 	@override
+	 BigDecimal getVkvlzz() { return this.VKVLZZ; }
+
+	@override
 	 BigDecimal getSts() { return this.STS; }
 
 	@override
@@ -457,6 +475,9 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 
 	@override
 	 BigDecimal getStv() { return this.STV; }
+
+	@override
+	 BigDecimal getVkvsonst() { return this.VKVSONST; }
 
 	@override
 	 BigDecimal getSolzlzz() { return this.SOLZLZZ; }
@@ -486,13 +507,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	 BigDecimal getVfrbs1() { /* required for newer calculator */ return BigDecimal(0);}
 
 	@override
-	 BigDecimal getVkvlzz() { /* required for newer calculator */ return BigDecimal(0);}
-
-	@override
 	 BigDecimal getWvfrbm() { /* required for newer calculator */ return BigDecimal(0);}
-
-	@override
-	 BigDecimal getVkvsonst() { /* required for newer calculator */ return BigDecimal(0);}
 
 	@override
 	 BigDecimal getWvfrb() { /* required for newer calculator */ return BigDecimal(0);}
@@ -500,7 +515,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	@override
 	 BigDecimal getWvfrbo() { /* required for newer calculator */ return BigDecimal(0);}
 
-	/** PROGRAMMABLAUFPLAN 2010, PAP Seite 10 */
+	/** PROGRAMMABLAUFPLAN, PAP Seite 12 */
 	@override
 	 void main() {
 
@@ -513,8 +528,8 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		MLSTJAHR();
 		LSTJAHR= ST.multiply(BigDecimal.valueOf(f)).setScale(0,BigDecimal.ROUND_DOWN);
 		JW= LSTJAHR.multiply(ZAHL100);
-		UPANTEIL();
-		LSTLZZ= ANTEIL1;
+		UPLSTLZZ();
+		UPVKVLZZ();
 		if(ZKF.compareTo (BigDecimal.ZERO) == 1) {
 			ZTABFB= (ZTABFB.add (KFB)).setScale (2, BigDecimal.ROUND_DOWN);
 			MRE4ABZ();
@@ -528,25 +543,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		MVMT();
 	}
 
-	/** Festlegung Arbeitnehmer-Pauschbetrag für aktiven Lohn mit möglicher Begrenzung nach § 9 EStG */
-	 void UPANP12() {
-
-		if(LZZ == 1) {
-			if((ZRE4.subtract(ZVBEZ)).compareTo(BigDecimal.valueOf(1000)) == -1) {
-				ANP = ((ANP.add(ZRE4)).subtract(ZVBEZ)).setScale(0,BigDecimal.ROUND_UP);
-			} else {
-				ANP = ANP.add(BigDecimal.valueOf(1000));
-			}
-		} else {
-			if((ZRE4.subtract(ZVBEZ)).compareTo(BigDecimal.valueOf(1880)) == -1) {
-				ANP = ((ANP.add(ZRE4)).subtract(ZVBEZ)).setScale(0,BigDecimal.ROUND_UP);;
-			} else {
-				ANP = ANP.add(BigDecimal.valueOf(1880));
-			}
-		}
-	}
-
-	/** Ermittlung des Jahresarbeitslohns nach § 39 b Abs. 2 Satz 2 EStG, PAP Seite 11 */
+	/** Ermittlung des Jahresarbeitslohns nach § 39 b Abs. 2 Satz 2 EStG, PAP Seite 12 */
 	 void MRE4JL() {
 
 		if(LZZ == 1) {
@@ -579,7 +576,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Freibeträge für Versorgungsbezüge, Altersentlastungsbetrag (§ 39b Abs. 2 Satz 3 EStG), PAP Seite 12 */
+	/** Freibeträge für Versorgungsbezüge, Altersentlastungsbetrag (§ 39b Abs. 2 Satz 3 EStG), PAP Seite 13 */
 	 void MRE4() {
 
 		if(ZVBEZJ.compareTo (BigDecimal.ZERO) == 0) {
@@ -630,7 +627,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		MRE4ALTE();
 	}
 
-	/** Altersentlastungsbetrag (§ 39b Abs. 2 Satz 3 EStG), PAP Seite 13 */
+	/** Altersentlastungsbetrag (§ 39b Abs. 2 Satz 3 EStG), PAP Seite 14 */
 	 void MRE4ALTE() {
 
 		if(ALTER1 == 0) {
@@ -654,7 +651,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Ermittlung des Jahresarbeitslohns nach Abzug der Freibeträge nach § 39 b Abs. 2 Satz 3 und 4 EStG, PAP Seite 15 */
+	/** Ermittlung des Jahresarbeitslohns nach Abzug der Freibeträge nach § 39 b Abs. 2 Satz 3 und 4 EStG, PAP Seite 16 */
 	 void MRE4ABZ() {
 
 		ZRE4= (ZRE4J.subtract (FVB).subtract   (ALTE).subtract (JLFREIB).add (JLHINZU)).setScale (2, BigDecimal.ROUND_DOWN);
@@ -671,7 +668,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Ermittlung der festen Tabellenfreibeträge (ohne Vorsorgepauschale), PAP Seite 16 */
+	/** Ermittlung der festen Tabellenfreibeträge (ohne Vorsorgepauschale), PAP Seite 17 */
 	 void MZTABFB() {
 
 		ANP= BigDecimal.ZERO;
@@ -692,7 +689,11 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 		if(STKL < 6) {
 			if(ZRE4.compareTo(ZVBEZ) == 1) {
-				UPANP12();
+				if(ZRE4.subtract(ZVBEZ).compareTo(ZAHL1000) == -1) {
+					ANP = ANP.add(ZRE4).subtract(ZVBEZ).setScale(0,BigDecimal.ROUND_UP);
+				} else {
+					ANP = ANP.add(ZAHL1000);
+				}
 			}
 		}
 		KZTAB= 1;
@@ -727,7 +728,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		ZTABFB= (EFA.add (ANP).add (SAP).add (FVBZ)).setScale (2, BigDecimal.ROUND_DOWN);
 	}
 
-	/** Ermittlung Jahreslohnsteuer, PAP Seite 17 */
+	/** Ermittlung Jahreslohnsteuer, PAP Seite 18 */
 	 void MLSTJAHR() {
 
 		UPEVP();
@@ -750,7 +751,35 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** PAP Seite 18 Ermittlung der Jahreslohnsteuer aus dem Einkommensteuertarif */
+	 void UPVKVLZZ() {
+
+		UPVKV();
+		JW = VKV;
+		UPANTEIL();
+		VKVLZZ = ANTEIL1;
+	}
+
+	 void UPVKV() {
+
+		if(PKV > 0) {
+			if(VSP2.compareTo(VSP3) == 1) {
+				VKV = VSP2.multiply(ZAHL100);
+			} else {
+				VKV = VSP3.multiply(ZAHL100);
+			}
+		} else {
+			VKV = BigDecimal.ZERO;
+		}
+	}
+
+	 void UPLSTLZZ() {
+
+		JW = LSTJAHR.multiply(ZAHL100);
+		UPANTEIL();
+		LSTLZZ = ANTEIL1;
+	}
+
+	/** PAP Seite 20 Ermittlung der Jahreslohnsteuer aus dem Einkommensteuertarif */
 	 void UPMLST() {
 
 		if(ZVE.compareTo (ZAHL1) == -1) {
@@ -760,38 +789,37 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 			X= (ZVE.divide (BigDecimal.valueOf(KZTAB))).setScale (0, BigDecimal.ROUND_DOWN);
 		}
 		if(STKL < 5) {
-			UPTAB10();
+			UPTAB14();/** Neu 2014 */
 		} else {
 			MST5_6();
 		}
 	}
 
-	/** Vorsorgepauschale (§ 39b Abs. 2 Satz 5 Nr 3 EStG) nach dem Bürgerentlastungsgesetz Krankenversicherung<br>
+	/** Vorsorgepauschale (§ 39b Absatz 2 Satz 5 Nummer 3 und Absatz 4 EStG)<br>
   			Achtung: Es wird davon ausgegangen, dass	<br>
-  				a) Die Rentenversicherungsbemessungsgrenze sich 2010 für die alten Bundesländer auf 66.000 Euro erhöht<br>
-  					 und für die neuen Beundesländer auf 55.800 festgelegt wird sowie		<br>
-  					 <br>
-  				b) der Beitragssatz zur Rentenversicherung gegenüber 2009 unverändert bleibt. <br>
+  				a) Es wird davon ausge-gangen, dassa) für die BBG (Ost) 60.000 Euro und für die BBG (West) 71.400 Euro festgelegt wird sowie<br>
+  				b) der Beitragssatz zur Rentenversicherung auf 18,9 % gesenkt wird.<br>
   			<br>
-  			PAP Seite 19 */
+  			PAP Seite 21 */
+	/** Neu 2014 */
 	 void UPEVP() {
 
 		if(KRV > 1) {
 			VSP1= BigDecimal.ZERO;
 		} else {
-			if(KRV == 0) {
-				if(ZRE4VP.compareTo (BigDecimal.valueOf (66000)) == 1) {
-					ZRE4VP= BigDecimal.valueOf (66000);
+			if(KRV == 0) {/** Neuer Wert 2014 */
+				if(ZRE4VP.compareTo(RENTBEMESSUNGSGR_WEST) == 1) {
+					ZRE4VP = RENTBEMESSUNGSGR_WEST;
 				}
-			} else {
-				if(ZRE4VP.compareTo(RENTBEMESSUNGSGR_OST_2011) == 1) {
-					ZRE4VP = RENTBEMESSUNGSGR_OST_2011;
+			} else {/** Neuer Wert 2014 */
+				if(ZRE4VP.compareTo(RENTBEMESSUNGSGR_OST) == 1) {
+					ZRE4VP = RENTBEMESSUNGSGR_OST;
 				}
-			}
-			VSP1= (ZRE4VP.multiply (BigDecimal.valueOf (0.44))).setScale (2, BigDecimal.ROUND_DOWN);
-			VSP1= (VSP1.multiply (BigDecimal.valueOf (0.0995))).setScale (2, BigDecimal.ROUND_DOWN);
+			}/** Neuer Wert 2014 */
+			VSP1 = (ZRE4VP.multiply(BigDecimal.valueOf(0.56))).setScale(2,BigDecimal.ROUND_DOWN);
+			VSP1 = (VSP1.multiply(BigDecimal.valueOf(0.0945))).setScale(2,BigDecimal.ROUND_DOWN);
 		}
-		VSP2= (ZRE4VP.multiply (BigDecimal.valueOf (0.12))).setScale (2, BigDecimal.ROUND_DOWN);
+		VSP2 = (ZRE4VP.multiply(BigDecimal.valueOf(0.12))).setScale(2,BigDecimal.ROUND_DOWN);
 		if(STKL == 3) {
 			VHB = BigDecimal.valueOf(3000);
 		} else {
@@ -807,40 +835,41 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Vorsorgepauschale (§39b Abs. 2 Satz 5 Nr 3 EStG) Vergleichsberechnung fuer Guenstigerpruefung, PAP Seite 20 */
+	/** Vorsorgepauschale (§39b Abs. 2 Satz 5 Nr 3 EStG) Vergleichsberechnung fuer Guenstigerpruefung, PAP Seite 22 */
+	/** Neu 2014 */
 	 void MVSP() {
-
-		if(ZRE4VP.compareTo( BigDecimal.valueOf(44550) ) == 1) {
-			ZRE4VP = BigDecimal.valueOf(44550);
+/** Neuer Wert 2014 */
+		if(ZRE4VP.compareTo( BigDecimal.valueOf(48600) ) == 1) {/** Neuer Wert 2014 */
+			ZRE4VP = BigDecimal.valueOf(48600);
 		}
 		if(PKV > 0) {
 			if(STKL == 6) {
-				VSP = BigDecimal.ZERO;
+				VSP3 = BigDecimal.ZERO;
 			} else {
-				VSP = PKPV.multiply(ZAHL12).divide(ZAHL100);
+				VSP3 = PKPV.multiply(ZAHL12).divide(ZAHL100);
 				if(PKV == 2) {
 					KVSATZAG = BigDecimal.valueOf(0.07).setScale(5);
 					if(PVS == 1) {
-						PVSATZAG = BigDecimal.valueOf(0.00475).setScale(5);
+						PVSATZAG = BigDecimal.valueOf(0.00525).setScale(5);
 					} else {
-						PVSATZAG = BigDecimal.valueOf(0.00975).setScale(5);
+						PVSATZAG = BigDecimal.valueOf(0.01025).setScale(5);
 					}
-					VSP = VSP.subtract(ZRE4VP.multiply(KVSATZAG.add(PVSATZAG))).setScale(2, BigDecimal.ROUND_DOWN);
+					VSP3 = VSP3.subtract(ZRE4VP.multiply(KVSATZAG.add(PVSATZAG))).setScale(2, BigDecimal.ROUND_DOWN);
 				}
 			}
 		} else {
 			KVSATZAN = BigDecimal.valueOf(0.079).setScale(5);
 			if(PVS == 1) {
-				PVSATZAN = BigDecimal.valueOf(0.01475).setScale(5);
+				PVSATZAN = BigDecimal.valueOf(0.01525).setScale(5);
 			} else {
-				PVSATZAN = BigDecimal.valueOf(0.00975).setScale(5);
+				PVSATZAN = BigDecimal.valueOf(0.01025).setScale(5);
 			}
 			if(PVZ == 1) {
 				PVSATZAN = PVSATZAN.add(BigDecimal.valueOf(0.0025));
 			}
-			VSP = ZRE4VP.multiply(KVSATZAN.add(PVSATZAN)).setScale(2, BigDecimal.ROUND_DOWN);
+			VSP3 = ZRE4VP.multiply(KVSATZAN.add(PVSATZAN)).setScale(2, BigDecimal.ROUND_DOWN);
 		}
-		VSP = VSP.add(VSP1).setScale(0, BigDecimal.ROUND_UP);
+		VSP = VSP3.add(VSP1).setScale(0, BigDecimal.ROUND_UP);
 	}
 
 	 void UMVSP() {
@@ -868,7 +897,8 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Lohnsteuer fuer die Steuerklassen V und VI (§ 39b Abs. 2 Satz 7 EStG), PAP Seite 21 */
+	/** Lohnsteuer fuer die Steuerklassen V und VI (§ 39b Abs. 2 Satz 7 EStG), PAP Seite 23 */
+	/** Neu 2014 */
 	 void MST5_6() {
 
 		ZZX= X;
@@ -884,11 +914,11 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		} else {
 			ZX= ZZX;
 			UP5_6();
-			if(ZZX.compareTo (BigDecimal.valueOf (9429)) == 1) {
+			if(ZZX.compareTo (BigDecimal.valueOf (9763)) == 1) /** Neuer Wert 2014 */{
 				VERGL= ST;
-				ZX= BigDecimal.valueOf (9429);
+				ZX= BigDecimal.valueOf (9763);/** Neuer Wert 2014 */
 				UP5_6();
-				HOCH= (ST.add ((ZZX.subtract (BigDecimal.valueOf (9429))).multiply (BigDecimal.valueOf (0.42)))).setScale (0, BigDecimal.ROUND_DOWN);
+				HOCH= (ST.add ((ZZX.subtract (BigDecimal.valueOf (9763))).multiply (BigDecimal.valueOf (0.42)))).setScale (0, BigDecimal.ROUND_DOWN);/** Neuer Wert 2014 */
 				if(HOCH.compareTo (VERGL) == -1) {
 					ST= HOCH;
 				} else {
@@ -898,14 +928,14 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Unterprogramm zur Lohnsteuer fuer die Steuerklassen V und VI (§ 39b Abs. 2 Satz 7 EStG), PAP Seite 21 */
+	/** Unterprogramm zur Lohnsteuer fuer die Steuerklassen V und VI (§ 39b Abs. 2 Satz 7 EStG), PAP Seite 24 */
 	 void UP5_6() {
 
 		X= (ZX.multiply (BigDecimal.valueOf (1.25))).setScale (2, BigDecimal.ROUND_DOWN);
-		UPTAB10();
+		UPTAB14();/** Neu 2014 */
 		ST1= ST;
 		X= (ZX.multiply (BigDecimal.valueOf (0.75))).setScale (2, BigDecimal.ROUND_DOWN);
-		UPTAB10();
+		UPTAB14();/** Neu 2014 */
 		ST2= ST;
 		DIFF= (ST1.subtract (ST2)).multiply (ZAHL2);
 		MIST= (ZX.multiply (BigDecimal.valueOf (0.14))).setScale (0, BigDecimal.ROUND_DOWN);
@@ -916,7 +946,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Solidaritaetszuschlag, PAP Seite 22 */
+	/** Solidaritaetszuschlag, PAP Seite 25 */
 	 void MSOLZ() {
 
 		SOLZFREI= BigDecimal.valueOf (972 * KZTAB);
@@ -941,29 +971,25 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Anteil von Jahresbetraegen fuer einen LZZ (§ 39b Abs. 2 Satz 9 EStG), PAP Seite 23 */
+	/** Anteil von Jahresbetraegen fuer einen LZZ (§ 39b Abs. 2 Satz 9 EStG), PAP Seite 26 */
 	 void UPANTEIL() {
 
 		if(LZZ == 1) {
 			ANTEIL1= JW;
-			ANTEIL2= JW;
 		} else {
 			if(LZZ == 2) {
 				ANTEIL1= JW.divide (ZAHL12, 0, BigDecimal.ROUND_DOWN);
-				ANTEIL2= JW.divide (ZAHL12, 0, BigDecimal.ROUND_UP);
 			} else {
 				if(LZZ == 3) {
 					ANTEIL1= (JW.multiply (ZAHL7)).divide (ZAHL360, 0, BigDecimal.ROUND_DOWN);
-					ANTEIL2= (JW.multiply (ZAHL7)).divide (ZAHL360, 0, BigDecimal.ROUND_UP);
 				} else {
 					ANTEIL1= JW.divide (ZAHL360, 0, BigDecimal.ROUND_DOWN);
-					ANTEIL2= JW.divide (ZAHL360, 0, BigDecimal.ROUND_UP);
 				}
 			}
 		}
 	}
 
-	/** Berechnung sonstiger Bezuege nach § 39b Abs. 3 Saetze 1 bis 8 EStG), PAP Seite 24 */
+	/** Berechnung sonstiger Bezuege nach § 39b Abs. 3 Saetze 1 bis 8 EStG), PAP Seite 27 */
 	 void MSONST() {
 
 		LZZ= 1;
@@ -971,17 +997,22 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 			ZMVB= 12;
 		}
 		if(SONSTB.compareTo (BigDecimal.ZERO) == 0) {
+			VKVSONST= BigDecimal.ZERO;
 			LSTSO= BigDecimal.ZERO;
 			STS= BigDecimal.ZERO;
 			SOLZS= BigDecimal.ZERO;
 			BKS= BigDecimal.ZERO;
 		} else {
 			MOSONST();
+			UPVKV();
+			VKVSONST = VKV;
 			ZRE4J= ((JRE4.add (SONSTB)).divide (ZAHL100)).setScale (2, BigDecimal.ROUND_DOWN);
 			ZVBEZJ= ((JVBEZ.add (VBS)).divide (ZAHL100)).setScale (2, BigDecimal.ROUND_DOWN);
 			VBEZBSO= STERBE;
 			MRE4SONST();
 			MLSTJAHR();
+			UPVKV();
+			VKVSONST = VKV.subtract(VKVSONST);
 			LSTSO= ST.multiply (ZAHL100);/** lt. PAP muss hier auf ganze EUR aufgerundet werden, <br>
         			allerdings muss der Wert in Cent vorgehalten werden,<br>
         			deshalb nach dem Aufrunden auf ganze EUR durch 'divide(ZAHL100, 0, BigDecimal.ROUND_DOWN)'<br>
@@ -999,7 +1030,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Berechnung der Verguetung fuer mehrjaehrige Taetigkeit nach § 39b Abs. 3 Satz 9 und 10 EStG), PAP Seite 25 */
+	/** Berechnung der Verguetung fuer mehrjaehrige Taetigkeit nach § 39b Abs. 3 Satz 9 und 10 EStG), PAP Seite 28 */
 	 void MVMT() {
 
 		if(VKAPA.compareTo (BigDecimal.ZERO) == -1) {
@@ -1050,7 +1081,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		}
 	}
 
-	/** Sonderberechnung ohne sonstige Bezüge für Berechnung bei sonstigen Bezügen oder Vergütung für mehrjährige Tätigkeit, PAP Seite 26 */
+	/** Sonderberechnung ohne sonstige Bezüge für Berechnung bei sonstigen Bezügen oder Vergütung für mehrjährige Tätigkeit, PAP Seite 29 */
 	 void MOSONST() {
 
 		ZRE4J= (JRE4.divide (ZAHL100)).setScale (2, BigDecimal.ROUND_DOWN);
@@ -1065,7 +1096,7 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		LSTOSO= ST.multiply (ZAHL100);
 	}
 
-	/** Sonderberechnung mit sonstige Bezüge für Berechnung bei sonstigen Bezügen oder Vergütung für mehrjährige Tätigkeit, PAP Seite 26 */
+	/** Sonderberechnung mit sonstige Bezüge für Berechnung bei sonstigen Bezügen oder Vergütung für mehrjährige Tätigkeit, PAP Seite 29 */
 	 void MRE4SONST() {
 
 		MRE4();
@@ -1076,15 +1107,16 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		MZTABFB();
 	}
 
-	/** Tarifliche Einkommensteuer §32a EStG, PAP Seite 27 */
-	 void UPTAB10() {
+	/** Tarifliche Einkommensteuer §32a EStG, PAP Seite 30 */
+	/** Neu 2014 */
+	 void UPTAB14() {
 
-		if(X.compareTo (BigDecimal.valueOf (8005)) == -1) {
+		if(X.compareTo (BigDecimal.valueOf (8355)) == -1) /** Neuer Wert 2014 */{
 			ST= BigDecimal.ZERO;
 		} else {
 			if(X.compareTo (BigDecimal.valueOf (13470)) == -1) {
-				Y= (X.subtract (BigDecimal.valueOf (8004))).divide (BigDecimal.valueOf (10000), 6, BigDecimal.ROUND_DOWN);
-				RW= Y.multiply (BigDecimal.valueOf (912.17));
+				Y= (X.subtract (BigDecimal.valueOf (8354))).divide (BigDecimal.valueOf (10000), 6, BigDecimal.ROUND_DOWN);/** Neuer Wert 2014 */
+				RW= Y.multiply (BigDecimal.valueOf (974.58));/** Neuer Wert 2014 */
 				RW= RW.add (BigDecimal.valueOf (1400));
 				ST= (RW.multiply (Y)).setScale (0, BigDecimal.ROUND_DOWN);
 			} else {
@@ -1093,12 +1125,12 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 					RW= Y.multiply (BigDecimal.valueOf (228.74));
 					RW= RW.add (BigDecimal.valueOf (2397));
 					RW= RW.multiply (Y);
-					ST= (RW.add (BigDecimal.valueOf (1038))).setScale (0, BigDecimal.ROUND_DOWN);
+					ST= (RW.add (BigDecimal.valueOf (971))).setScale (0, BigDecimal.ROUND_DOWN);/** Neuer Wert 2014 */
 				} else {
-					if(X.compareTo (BigDecimal.valueOf (250731)) == -1) {
-						ST= ((X.multiply (BigDecimal.valueOf (0.42))).subtract (BigDecimal.valueOf (8172))).setScale (0, BigDecimal.ROUND_DOWN);
-					} else {
-						ST= ((X.multiply (BigDecimal.valueOf (0.45))).subtract (BigDecimal.valueOf (15694))).setScale (0, BigDecimal.ROUND_DOWN);
+					if(X.compareTo (BigDecimal.valueOf (250731)) == -1) {/** Neuer Wert 2014 */
+						ST= ((X.multiply (BigDecimal.valueOf (0.42))).subtract (BigDecimal.valueOf (8239))).setScale (0, BigDecimal.ROUND_DOWN);
+					} else {/** Neuer Wert 2014 */
+						ST= ((X.multiply (BigDecimal.valueOf (0.45))).subtract (BigDecimal.valueOf (15761))).setScale (0, BigDecimal.ROUND_DOWN);
 					}
 				}
 			}

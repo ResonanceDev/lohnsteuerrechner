@@ -1,5 +1,5 @@
-import 'package:lohnsteuer/src/BigDecimal.dart';
-import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
+import 'package:lohnsteuerrechenr/src/BigDecimal.dart';
+import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 
 /**
  * 
@@ -8,9 +8,9 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
  * 
  */
 
- class Lohnsteuer2020 implements LohnsteuerInterface {
+ class Lohnsteuer2017 implements LohnsteuerInterface {
 
-	/** Stand: 2019-11-29 */
+	/** Stand: 2016-11-08 */
 	/** ITZBund Düsseldorf */
 
 	/* EINGABEPARAMETER*/
@@ -93,9 +93,6 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	/** Beitragsbemessungsgrenze in der gesetzlichen Krankenversicherung <br>
 		        	und der sozialen Pflegeversicherung in Euro */
 	 BigDecimal BBGKVPV = new BigDecimal(0);
-
-	/** Nach Programmablaufplan 2019 */
-	 BigDecimal bd = new BigDecimal(0);
 
 	/** allgemeine Beitragsbemessungsgrenze in der allgemeinen Renten-versicherung in Euro */
 	 BigDecimal BBGRV = new BigDecimal(0);
@@ -547,32 +544,31 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 
 		if(KRV < 2) /** &lt; = < */{
 			if(KRV == 0) {
-				BBGRV = new BigDecimal(82800);/** Neu 2020 */
+				BBGRV = new BigDecimal(76200);/** Neu 2017 */
 			} else {
-				BBGRV = new BigDecimal(77400);/** Neu 2020 */
+				BBGRV = new BigDecimal(68400);/** Neu 2017 */
 			}
-			RVSATZAN = BigDecimal.valueOf(0.093);/** Neu 2019 */
-			TBSVORV = BigDecimal.valueOf(0.8);/** Neu 2020 */
+			RVSATZAN = BigDecimal.valueOf(0.0935);
+			TBSVORV = BigDecimal.valueOf(0.68);/** Neu 2017 */
 		} else {/** Nichts zu tun */
 		}
-		BBGKVPV = new BigDecimal(56250);/** Neu 2020 */
-		bd = new BigDecimal(2);/** Neu 2019 */
-		KVSATZAN = (KVZ.divide(bd).divide(ZAHL100)).add(BigDecimal.valueOf(0.07));/** Neu 2019 */
-		KVSATZAG = BigDecimal.valueOf(0.0055+0.07);/** Neu 2020 */
+		BBGKVPV = new BigDecimal(52200);/** Neu 2017 */
+		KVSATZAN = (KVZ.divide(ZAHL100)).add(BigDecimal.valueOf(0.07));
+		KVSATZAG = BigDecimal.valueOf(0.07);
 		if(PVS == 1) {
-			PVSATZAN = BigDecimal.valueOf(0.02025);/** Neu 2019 */
-			PVSATZAG = BigDecimal.valueOf(0.01025);/** Neu 2019 */
+			PVSATZAN = BigDecimal.valueOf(0.01775);/** Neu 2017 */
+			PVSATZAG = BigDecimal.valueOf(0.00775);/** Neu 2017 */
 		} else {
-			PVSATZAN =  BigDecimal.valueOf(0.01525);/** Neu 2019 */
-			PVSATZAG =  BigDecimal.valueOf(0.01525);/** Neu 2019 */
+			PVSATZAN =  BigDecimal.valueOf(0.01275);/** Neu 2017 */
+			PVSATZAG =  BigDecimal.valueOf(0.01275);/** Neu 2017 */
 		}
 		if(PVZ == 1) {
 			PVSATZAN = PVSATZAN.add(BigDecimal.valueOf(0.0025));
-		}/** Anfang Neu 2020 */
-		W1STKL5 = new BigDecimal(10898);
-		W2STKL5 = new BigDecimal(28526);
-		W3STKL5 = new BigDecimal(216400);
-		GFB = new BigDecimal(9408);/** Ende Neu 2020 */
+		}/** Anfang Neu 2017 */
+		W1STKL5 = new BigDecimal(10240);
+		W2STKL5 = new BigDecimal(27029);
+		W3STKL5 = new BigDecimal(205043);
+		GFB = new BigDecimal(8820);/** Ende Neu 2017 */
 		SOLZFREI = new BigDecimal(972);
 	}
 
@@ -759,21 +755,21 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		KZTAB= 1;
 		if(STKL == 1) {
 			SAP= BigDecimal.valueOf (36);
-			KFB= (ZKF.multiply (BigDecimal.valueOf (7812))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2020 */
+			KFB= (ZKF.multiply (BigDecimal.valueOf (7356))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2017 */
 		} else {
 			if(STKL == 2) {
 				EFA= BigDecimal.valueOf (1908);
 				SAP= BigDecimal.valueOf (36);
-				KFB= (ZKF.multiply (BigDecimal.valueOf (7812))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2020 */
+				KFB= (ZKF.multiply (BigDecimal.valueOf (7356))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2017 */
 			} else {
 				if(STKL == 3) {
 					KZTAB= 2;
 					SAP= BigDecimal.valueOf (36);
-					KFB= (ZKF.multiply (BigDecimal.valueOf (7812))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2020 */
+					KFB= (ZKF.multiply (BigDecimal.valueOf (7356))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2017 */
 				} else {
 					if(STKL == 4) {
 						SAP= BigDecimal.valueOf (36);
-						KFB= (ZKF.multiply (BigDecimal.valueOf (3906))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2020 */
+						KFB= (ZKF.multiply (BigDecimal.valueOf (3678))).setScale (0, BigDecimal.ROUND_DOWN);/** Neu 2017 */
 					} else {
 						if(STKL == 5) {
 							SAP= BigDecimal.valueOf (36);
@@ -851,8 +847,8 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		} else {
 			X= (ZVE.divide (BigDecimal.valueOf(KZTAB))).setScale (0, BigDecimal.ROUND_DOWN);
 		}
-		if(STKL < 5) {/** Neu 2020 */
-			UPTAB20();
+		if(STKL < 5) {/** Neu 2017 */
+			UPTAB17();
 		} else {
 			MST5_6();
 		}
@@ -945,11 +941,11 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 	/** Unterprogramm zur Lohnsteuer fuer die Steuerklassen V und VI (§ 39b Abs. 2 Satz 7 EStG), PAP Seite 29 */
 	 void UP5_6() {
 
-		X= (ZX.multiply (BigDecimal.valueOf (1.25))).setScale (2, BigDecimal.ROUND_DOWN);/** Neu 2020 */
-		UPTAB20();
+		X= (ZX.multiply (BigDecimal.valueOf (1.25))).setScale (2, BigDecimal.ROUND_DOWN);/** Neu 2017 */
+		UPTAB17();
 		ST1= ST;
-		X= (ZX.multiply (BigDecimal.valueOf (0.75))).setScale (2, BigDecimal.ROUND_DOWN);/** Neu 2020 */
-		UPTAB20();
+		X= (ZX.multiply (BigDecimal.valueOf (0.75))).setScale (2, BigDecimal.ROUND_DOWN);/** Neu 2017 */
+		UPTAB17();
 		ST2= ST;
 		DIFF= (ST1.subtract (ST2)).multiply (ZAHL2);
 		MIST= (ZX.multiply (BigDecimal.valueOf (0.14))).setScale (0, BigDecimal.ROUND_DOWN);
@@ -1131,30 +1127,30 @@ import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
 		VFRBS2 = ((((ANP.add(FVB).add(FVBZ))).multiply(ZAHL100))).subtract(VFRBS1);
 	}
 
-	/** Komplett Neu 2020 */
+	/** Komplett Neu 2017 */
 	/** Tarifliche Einkommensteuer §32a EStG, PAP Seite 36 */
-	 void UPTAB20() {
+	 void UPTAB17() {
 
 		if(X.compareTo(GFB.add(ZAHL1)) == -1) {
 			ST= BigDecimal.ZERO;
 		} else {
-			if(X.compareTo (BigDecimal.valueOf (14533)) == -1) /** neu seit 2020 */{
+			if(X.compareTo (BigDecimal.valueOf (13770)) == -1) {
 				Y = (X.subtract(GFB)).divide(ZAHL10000, 6,BigDecimal.ROUND_DOWN);
-				RW= Y.multiply (BigDecimal.valueOf (972.87));/** neu seit 2020 */
+				RW= Y.multiply (BigDecimal.valueOf (1007.27));
 				RW= RW.add (BigDecimal.valueOf (1400));
 				ST= (RW.multiply (Y)).setScale (0, BigDecimal.ROUND_DOWN);
 			} else {
-				if(X.compareTo (BigDecimal.valueOf (57052)) == -1) /** neu seit 2020 */{
-					Y= (X.subtract (BigDecimal.valueOf (14532))).divide (ZAHL10000, 6, BigDecimal.ROUND_DOWN);
-					RW= Y.multiply (BigDecimal.valueOf (212.02));/** neu seit 2020 */
+				if(X.compareTo (BigDecimal.valueOf (54058)) == -1) {
+					Y= (X.subtract (BigDecimal.valueOf (13769))).divide (ZAHL10000, 6, BigDecimal.ROUND_DOWN);
+					RW= Y.multiply (BigDecimal.valueOf (223.76));
 					RW= RW.add (BigDecimal.valueOf (2397));
 					RW= RW.multiply (Y);
-					ST= (RW.add (BigDecimal.valueOf (972.79))).setScale (0, BigDecimal.ROUND_DOWN);/** neu seit 2020 */
+					ST= (RW.add (BigDecimal.valueOf (939.57))).setScale (0, BigDecimal.ROUND_DOWN);
 				} else {
-					if(X.compareTo (BigDecimal.valueOf (270501)) == -1) /** neu seit 2020 */{
-						ST= ((X.multiply (BigDecimal.valueOf (0.42))).subtract (BigDecimal.valueOf (8963.74))).setScale (0, BigDecimal.ROUND_DOWN);/** neu seit 2020 */
+					if(X.compareTo (BigDecimal.valueOf (256304)) == -1) {
+						ST= ((X.multiply (BigDecimal.valueOf (0.42))).subtract (BigDecimal.valueOf (8475.44))).setScale (0, BigDecimal.ROUND_DOWN);
 					} else {
-						ST= ((X.multiply (BigDecimal.valueOf (0.45))).subtract (BigDecimal.valueOf (17078.74))).setScale (0, BigDecimal.ROUND_DOWN);/** neu seit 2020 */
+						ST= ((X.multiply (BigDecimal.valueOf (0.45))).subtract (BigDecimal.valueOf (16164.53))).setScale (0, BigDecimal.ROUND_DOWN);
 					}
 				}
 			}

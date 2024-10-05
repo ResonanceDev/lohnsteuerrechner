@@ -1,5 +1,5 @@
 
-import 'package:lohnsteuer/src/BigDecimal.dart';
+import 'package:lohnsteuerrechenr/src/BigDecimal.dart';
 
 abstract class LohnsteuerInterface {
   void main();

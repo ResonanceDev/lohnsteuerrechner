@@ -21,9 +21,12 @@ void main() {
     lohnsteuer.setPkv(0);
     lohnsteuer.setKrv(0);
     lohnsteuer.setAf(0);
+    //      mit       ohne
+    //Ls    439       432,75
 
-
-
+    //soAB  715,75    736,75
+    //      1154,75   1169,5
+    //dif   14,75
 
     lohnsteuer.main();
     print("\nLohnabzuege bei 3500 EUR Brutto: \n\n");

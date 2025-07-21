@@ -2,18 +2,19 @@ import 'package:lohnsteuerrechenr/lohnsteuer.dart';
 import 'package:lohnsteuerrechenr/src/BigDecimal.dart';
 
 void main() {
-    final dt = DateTime(2024, 1,1 ,1);
+    final dt = DateTime(2025, 1,1 ,1);
 
     final lohnsteuer = Lohnsteuer.getInstance(dt);
+    const double testwert = 492820;
 
-    lohnsteuer.setRe4(BigDecimal(350000)); // -> WICHTIGSTE ANGABE -> BURTTO-LOHN
+    lohnsteuer.setRe4(BigDecimal(testwert)); // -> WICHTIGSTE ANGABE -> BURTTO-LOHN
     lohnsteuer.setVjahr(2024);
     lohnsteuer.setR(0);
     //lohnsteuer.setJre4(BigDecimal(0)); // -> Herausfinden was das ist
     lohnsteuer.setLzz(2);
     lohnsteuer.setStkl(1);
     lohnsteuer.setAlter1(0);
-    lohnsteuer.setKvz(BigDecimal(1.7));
+    lohnsteuer.setKvz(BigDecimal(2.5));
     lohnsteuer.setPkv(0);
     lohnsteuer.setKrv(0);
     lohnsteuer.setAf(0);

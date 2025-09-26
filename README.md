@@ -9,6 +9,8 @@ Der Generator wurde nicht uebersetzt.
 Das Ausgangsprojekt von Marcel Lehmann dient zur Generation von .java Dateien, die dann hier zu .dart
 Dateien mit Hilfe einer Wrapper-Klasse per Hand zu konvertieren.
 
+Der Brutto-Netto-Rechner wird für <a target="_blank" href="https://zahltag.online/lohnrechner">https://zahltag.online/lohnrechner</a> benutzt.
+
 
 <h3>Lizenzinformation</h3>
 

@@ -20,6 +20,7 @@ import 'package:lohnsteuerrechenr/src/Lohnsteuer2022.dart';
 import 'package:lohnsteuerrechenr/src/Lohnsteuer2023.dart';
 import 'package:lohnsteuerrechenr/src/Lohnsteuer2023AbJuli.dart';
 import 'package:lohnsteuerrechenr/src/Lohnsteuer2024.dart';
+import 'package:lohnsteuerrechenr/src/Lohnsteuer2025.dart';
 import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 
 
@@ -31,7 +32,7 @@ import 'package:lohnsteuerrechenr/src/LohnsteuerInterface.dart';
 
 class Lohnsteuer {
   static LohnsteuerInterface getInstanceDefault() {
-    return Lohnsteuer2024();
+    return Lohnsteuer2025();
   }
 
   static LohnsteuerInterface getInstance(DateTime? date) {
@@ -39,7 +40,11 @@ class Lohnsteuer {
       int year = date.year;
       int month = date.month;
 
-      if ((year == 2024 && month >= 1) || year > 2024) {
+
+      if ((year == 2025 && month >= 1) || year > 2025) {
+        return Lohnsteuer2025();
+      }
+      if ((year == 2024 && month >= 1 && month <= 12)) {
         return Lohnsteuer2024();
       }
       if (year == 2023 && month >= 7 && month <= 12) {
@@ -108,7 +113,7 @@ class Lohnsteuer {
       throw ArgumentError('Illegal Date, format should be ${('yyyy-MM-dd')}');
     }
 
-    return Lohnsteuer2024();
+    return Lohnsteuer2025();
   }
 }
 

@@ -7,6 +7,8 @@ export 'src/lohnsteuer_base.dart';
 export 'src/Lohnsteuer.dart';
 export 'src/Lohnsteuer2023.dart';
 export 'src/Lohnsteuer2024.dart';
+export 'src/Lohnsteuer2025.dart';
+export 'src/Lohnsteuer2026.dart';
 export 'src/LohnsteuerInterface.dart';
 
 // TODO: Export any libraries intended for clients of this package.

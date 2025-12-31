@@ -1,0 +1,47 @@
+add to:
+
+import 'package:lohnsteuer/src/BigDecimal.dart';
+import 'package:lohnsteuer/src/LohnsteuerInterface.dart';
+
+
+
+replace strings:
+
+protected 
+
+public
+
+BigDecimal[]
+List<BigDecimal>
+
+@Override
+@override
+
+{BigDecimal.valueOf
+[BigDecimal.valueOf
+
+
+)}
+)]
+
+return null; }
+return BigDecimal(0);}
+
+
+
+write wrapper:
+
+create wrapper function for BigDecimal.valueOf(i.e. Decimal.parse())
+
+create wrapper constructor for BigDecumal() -> Decimal.parse()
+
+
+
+extensions for Decimal(aka BigDecimal):
+
+optional parameters for add, divide and mulitply(3 params)
+
+write compareTo function
+
+write subtracxt
+function

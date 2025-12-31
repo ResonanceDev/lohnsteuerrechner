@@ -15,9 +15,6 @@ class BigDecimal
   static var ONE =  BigDecimal(1);
   static var TEN =  BigDecimal(10);
 
-
-
-
   static BigDecimal valueOf(num) {
     if(num.runtimeType == double)
       {
